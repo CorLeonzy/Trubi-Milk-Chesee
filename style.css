@@ -172,3 +172,57 @@ html, body {height:100%;scroll-behavior: smooth;font-family: 'Poppins', sans-ser
 @media (max-width:600px){
   .product-grid{grid-template-columns:1fr;}
 }
+
+/* --- Tambahan untuk HP biar gak ketumpuk --- */
+@media (max-width:600px){
+  .hero {
+    padding: 50px 0;
+  }
+
+  .hero-copy h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .hero-copy .lead {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-media {
+    margin-top: 20px;
+  }
+
+  .media-card {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .section h2 {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .review-form input,
+  .review-form textarea {
+    font-size: 0.9rem;
+  }
+
+  .contact-btn {
+    font-size: 0.9rem;
+  }
+
+  .brand-text .title {
+    font-size: 16px;
+  }
+
+  .brand-text .subtitle {
+    font-size: 10px;
+  }
+}
