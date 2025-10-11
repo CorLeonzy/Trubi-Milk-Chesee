@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Trubi Milk Cheese</title>
+
+  <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- LOADING SCREEN -->
-  <div id="loading-screen">
-    <img src="https://www.gambaranimasi.org/data/media/707/animasi-bergerak-selamat-datang-0031.gif" alt="Selamat Datang" class="loading-gif">
+  <!-- LOADING -->
+  <div id="loading-screen" aria-hidden="false">
+    <img class="loading-gif" src="https://www.gambaranimasi.org/data/media/707/animasi-bergerak-selamat-datang-0031.gif" alt="Memuat...">
   </div>
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="wrap header-inner">
       <div class="brand">
-        <div class="brand-mark">TRUBI</div>
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="brand-logo">
         <div class="brand-text">
-          <div class="title">Trubi Milk Cheese</div>
-          <div class="subtitle">Ubi • Susu • Keju</div>
+          <h1>Trubi Milk Cheese</h1>
+          <p>Ubi • Susu • Keju</p>
         </div>
       </div>
 
-      <nav class="nav">
+      <nav class="nav" aria-label="Main">
         <a href="#about">Tentang</a>
         <a href="#produk">Produk</a>
+        <a href="#gallery">Galeri</a>
         <a href="#lokasi">Lokasi</a>
         <a href="#review">Review</a>
-        <div class="contact-wrap" tabindex="0">
-          <button id="contactBtn" class="contact-btn">Hubungi Kami ▾</button>
+
+        <div class="contact-wrap">
+          <button id="contactBtn" class="contact-btn" aria-expanded="false">Hubungi Kami ▾</button>
           <div id="contactPopup" class="contact-popup" aria-hidden="true">
-            <a href="https://wa.me/6281234567890" target="_blank">📱 WhatsApp</a>
-            <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">📸 Instagram</a>
-            <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90PLxWj12Sz&_r=1" target="_blank">🎵 TikTok</a>
+            <a href="https://wa.me/6289525585293" target="_blank" rel="noopener">📱 WhatsApp</a>
+            <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank" rel="noopener">📸 Instagram</a>
+            <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank" rel="noopener">🎵 TikTok</a>
           </div>
         </div>
       </nav>
@@ -43,147 +46,197 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero" id="home" data-parallax>
-    <div class="hero-bg"></div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Inovasi Lokal • Kualitas Tinggi</p>
-        <h1>Trubi Milk Cheese — <span class="accent">Creamy</span> & <span class="accent-2">Lembut</span></h1>
-        <p class="lead">Sensasi minuman ubi + susu + cream cheese — unik, sehat, dan menggoda.</p>
-        <div class="hero-ctas">
-          <a class="btn primary" href="#produk">Lihat Produk</a>
-          <a class="btn ghost" href="#about">Tentang Kami</a>
+  <section class="hero" id="home" data-reveal>
+    <div class="hero-content wrap">
+      <div class="hero-text">
+        <p class="eyebrow">Inovasi Lokal • Kualitas Premium</p>
+        <h2>Trubi Milk Cheese</h2>
+        <p class="lead">Kombinasi sempurna antara ubi ungu lokal, susu segar, dan cream cheese premium — rasa lembut dan menggoda di setiap tegukan.</p>
+        <div class="hero-btns">
+          <a href="#produk" class="btn primary">Lihat Produk</a>
+          <a href="#about" class="btn ghost">Tentang Kami</a>
         </div>
       </div>
 
-      <div class="hero-media">
-        <div class="media-card">
-          <div class="media-badge">Terlaris</div>
-          <img src="assets/images/produk1.jpg" alt="Produk Trubi" class="prod-img">
-        </div>
+      <div class="hero-image">
+        <img src="assets/images/trubi3.jpg" alt="Trubi Milk Cheese">
       </div>
     </div>
   </section>
 
-  <!-- TENTANG -->
+  <!-- ABOUT -->
   <section id="about" class="section about-section" data-reveal>
     <div class="wrap about-wrap">
       <div class="about-text">
         <h2>Tentang Trubi</h2>
-        <p><strong>Trubi Milk Cheese</strong> adalah minuman inovatif berbahan dasar <em>ubi ungu, susu segar, dan keju premium</em> yang memadukan cita rasa tradisional dengan sentuhan modern. Diciptakan oleh generasi muda Indonesia yang peduli pada kesehatan dan cita rasa, Trubi hadir untuk memberikan pengalaman minum yang lezat sekaligus bernutrisi.</p>
-
-        <p>Kami menggunakan bahan alami tanpa pengawet berlebih, dengan proses produksi higienis, serta menjaga keseimbangan antara rasa manis, gurih, dan lembut. Selain menjadi minuman kekinian, Trubi juga menjadi simbol kreativitas anak bangsa dalam menghadirkan produk lokal berkualitas internasional.</p>
-
+        <p><strong>Trubi Milk Cheese</strong> menghadirkan inovasi minuman berbahan dasar ubi ungu, susu, dan keju. Rasa creamy dan tekstur lembut jadi ciri khas Trubi. Kami memprioritaskan bahan lokal & proses higienis.</p>
         <ul class="about-points">
-          <li>✨ Bahan alami & segar</li>
-          <li>🧀 Rasa keju creamy & lembut</li>
-          <li>🥛 Susu full cream pilihan</li>
           <li>🍠 Ubi ungu asli Indonesia</li>
+          <li>🥛 Susu full cream pilihan</li>
+          <li>🧀 Keju lembut premium</li>
+          <li>✨ Tanpa pengawet buatan</li>
         </ul>
-
-        <p class="quote">“Trubi bukan sekadar minuman — ini tentang rasa, semangat, dan inovasi anak muda Indonesia.”</p>
       </div>
-
       <div class="about-image">
-        <img src="assets/images/produk1.jpg" alt="Trubi Milk Cheese">
+        <img src="assets/images/trubi2.jpg" alt="Tentang Trubi">
       </div>
     </div>
   </section>
 
   <!-- PRODUK -->
-  <section id="produk" class="section section-alt" data-reveal>
+  <section id="produk" class="section product-section" data-reveal>
     <div class="wrap">
       <h2>Produk Unggulan</h2>
       <div class="product-grid">
-        <article class="prod">
-          <div class="prod-thumb">
-            <img src="assets/images/produk1.jpg" alt="Trubi Original">
-          </div>
-          <h3>Trubi Original</h3>
-          <p>Ubi ungu + susu full cream + whipped cream cheese. Rp12.000–Rp15.000</p>
-        </article>
+        <article class="prod"><img src="assets/images/trubi1.jpg" alt="Trubi Original"><h3>Trubi Original</h3><p>Ubi + susu full cream + cream cheese.</p></article>
+        <article class="prod"><img src="assets/images/trubi3.jpg" alt="Trubi Choco"><h3>Trubi Choco Cheese</h3><p>Susu coklat + keju + topping.</p></article>
+        <article class="prod"><img src="assets/images/trubi5.jpg" alt="Trubi Boba"><h3>Trubi Boba Trio</h3><p>Topping boba + cream cheese.</p></article>
+      </div>
+    </div>
+  </section>
 
-        <article class="prod">
-          <div class="prod-thumb">
-            <img src="assets/images/produk1.jpg" alt="Trubi Choco Cheese">
+  <!-- GALLERY -->
+  <section id="gallery" class="section gallery-section" data-reveal>
+    <div class="wrap">
+      <h2>Galeri Trubi</h2>
+      <div class="gallery-slider">
+        <button class="slider-btn left" id="prevSlide" aria-label="Sebelumnya">‹</button>
+        <div class="gallery-viewport">
+          <div class="gallery-track" id="galleryTrack">
+            <img src="assets/images/trubi1.jpg" alt="trubi1">
+            <img src="assets/images/trubi2.jpg" alt="trubi2">
+            <img src="assets/images/trubi3.jpg" alt="trubi3">
+            <img src="assets/images/trubi4.jpg" alt="trubi4">
+            <img src="assets/images/trubi5.jpg" alt="trubi5">
+            <img src="assets/images/trubi6.jpg" alt="trubi6">
+            <img src="assets/images/trubi7.jpg" alt="trubi7">
           </div>
-          <h3>Trubi Choco Cheese</h3>
-          <p>Susu coklat + keju + topping boba ubi.</p>
-        </article>
-
-        <article class="prod">
-          <div class="prod-thumb">
-            <img src="assets/images/produk1.jpg" alt="Trubi Boba Trio">
-          </div>
-          <h3>Trubi Boba Trio</h3>
-          <p>Ubi + susu + tiga jenis boba + cream cheese topping.</p>
-        </article>
+        </div>
+        <button class="slider-btn right" id="nextSlide" aria-label="Berikutnya">›</button>
       </div>
     </div>
   </section>
 
   <!-- LOKASI -->
   <section id="lokasi" class="section location-section" data-reveal>
-    <div class="wrap">
-      <h2>Lokasi Kami</h2>
-      <div class="location-box">
-        <div class="map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24821573.262935482!2d105.0794676048305!3d-4.445273445570013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f514287bc1ef%3A0x3450ea779bffcee5!2sSMK%20Hang%20Tuah%201%20Jakarta!5e1!3m2!1sid!2sid!4v1755744874701!5m2!1sid!2sid"
-            allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <div class="address">
-          <h4>Alamat</h4>
-          <p>Jl. Tabah Raya No.1, Kelapa Gading, Jakarta Utara 14240</p>
-          <p><strong>Jam Operasional:</strong> Senin–Sabtu 09:00–21:00</p>
-          <div class="loc-actions">
-            <button class="btn" onclick="findLocation()">Buka Maps</button>
-            <a class="btn ghost" href="#">Link Pembayaran</a>
-          </div>
+    <div class="wrap location-grid">
+      <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24821573.262935482!2d105.0794676048305!3d-4.445273445570013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f514287bc1ef%3A0x3450ea779bffcee5!2sSMK%20Hang%20Tuah%201%20Jakarta!5e1!3m2!1sid!2sid!4v1755744874701!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+
+      <div class="address">
+        <h3>Alamat Kami</h3>
+        <p>Jl. Tabah Raya No.1, Kelapa Gading, Jakarta Utara 14240</p>
+        <h4>Jam Operasional</h4>
+        <p>Senin–Sabtu 09:00–21:00</p>
+        <div class="loc-actions">
+          <button class="btn primary" onclick="findLocation()">📍 Buka Maps</button>
+          <a class="btn ghost" href="#">💳 Link Pembayaran</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- REVIEW -->
+  <!-- REVIEW (UPGRADED) -->
   <section id="review" class="section review-section" data-reveal>
-    <div class="wrap">
-      <h2>Berikan Pendapatmu</h2>
-      <form id="reviewForm" class="review-form">
-        <input id="reviewName" type="text" placeholder="Nama Anda" required>
-        <textarea id="reviewText" rows="4" placeholder="Tulis pendapatmu..." required></textarea>
-
-        <div class="stars" role="radiogroup" aria-label="Pilih rating">
-          <button type="button" class="star" data-value="1" aria-pressed="false">☆</button>
-          <button type="button" class="star" data-value="2" aria-pressed="false">☆</button>
-          <button type="button" class="star" data-value="3" aria-pressed="false">☆</button>
-          <button type="button" class="star" data-value="4" aria-pressed="false">☆</button>
-          <button type="button" class="star" data-value="5" aria-pressed="false">☆</button>
+    <div class="wrap review-wrap">
+      <div class="review-summary">
+        <h2>Berikan Pendapatmu</h2>
+        <div class="avg-box" id="avgBox" aria-hidden="true">
+          <div class="avg-value" id="avgValue">0.0</div>
+          <div class="avg-stars" id="avgStars" aria-hidden="true"></div>
+          <div class="avg-count muted" id="avgCount">Belum ada review</div>
         </div>
+      </div>
 
-        <div class="form-row">
-          <button class="btn primary" type="submit">Kirim Review</button>
-          <button class="btn ghost" type="reset">Bersihkan</button>
+      <div class="review-grid">
+        <form id="reviewForm" class="review-form" aria-label="Form review">
+          <label class="label">
+            <span>Nama</span>
+            <input id="reviewName" type="text" placeholder="Nama Anda" required>
+          </label>
+
+          <label class="label">
+            <span>Komentar</span>
+            <textarea id="reviewText" rows="4" placeholder="Tulis pendapatmu..." required></textarea>
+          </label>
+
+          <div class="label">
+            <span>Rating</span>
+            <div class="star-picker" role="radiogroup" aria-label="Pilih rating">
+              <button type="button" class="star" data-value="1" aria-pressed="false">☆</button>
+              <button type="button" class="star" data-value="2" aria-pressed="false">☆</button>
+              <button type="button" class="star" data-value="3" aria-pressed="false">☆</button>
+              <button type="button" class="star" data-value="4" aria-pressed="false">☆</button>
+              <button type="button" class="star" data-value="5" aria-pressed="false">☆</button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit">Kirim Review</button>
+            <button class="btn ghost" type="reset">Bersihkan</button>
+          </div>
+        </form>
+
+        <div class="reviews-list-wrap">
+          <div id="reviewsList" class="reviews-list" aria-live="polite"></div>
         </div>
-      </form>
-
-      <div id="reviewsList" class="reviews-list" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" data-reveal>
-    <div class="wrap footer-inner">
-      <strong>Trubi Milk Cheese</strong>
-      <div class="muted">Ubi • Susu • Keju</div>
-      <div class="socials">
-        <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
-        <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90PLxWj12Sz&_r=1" target="_blank">TikTok</a>
       </div>
     </div>
-    <div class="wrap copyright">© 2025 Trubi Milk Cheese</div>
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- toast -->
+    <div id="toast" class="toast" aria-hidden="true"></div>
+  </section>
+
+  <!-- Ganti bagian FOOTER di index.html lo jadi ini -->
+<footer class="site-footer" data-reveal>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+      <div>
+        <strong>Trubi Milk Cheese</strong>
+        <div class="muted">Ubi • Susu • Keju</div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h4>Navigasi</h4>
+      <ul>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#produk">Produk</a></li>
+        <li><a href="#gallery">Galeri</a></li>
+        <li><a href="#lokasi">Lokasi</a></li>
+        <li><a href="#review">Review</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-group">
+      <h4>Kelompok 8 PKWU</h4>
+      <ul>
+        <li>Aryo</li>
+        <li>Callista</li>
+        <li>Zahra</li>
+        <li>Naomi</li>
+        <li>Badria</li>
+        <li>Haura</li>
+        <li>Claudia</li>
+        <li>Checy</li>
+      </ul>
+    </div>
+
+    <div class="footer-socials">
+      <h4>Ikuti Kami</h4>
+      <a href="https://wa.me/6289525585293" target="_blank">WhatsApp</a>
+      <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank">TikTok</a>
+    </div>
+  </div>
+
+  <div class="wrap copyright">
+    <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
