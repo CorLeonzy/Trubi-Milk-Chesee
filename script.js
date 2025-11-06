@@ -10,6 +10,59 @@ window.addEventListener("load", () => {
   }, 900);
 });
 
+/* MOBILE NAVIGATION */
+(function mobileNavInit() {
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'mobile-overlay';
+  document.body.appendChild(overlay);
+  
+  // Toggle mobile menu
+  function toggleMobileMenu() {
+    mobileMenuBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    
+    // Update aria attributes
+    const isExpanded = mobileMenu.classList.contains('active');
+    mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+    mobileMenu.setAttribute('aria-hidden', !isExpanded);
+  }
+  
+  // Close mobile menu
+  function closeMobileMenu() {
+    mobileMenuBtn.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Update aria attributes
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+  }
+  
+  // Event listeners
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  overlay.addEventListener('click', closeMobileMenu);
+  
+  // Close menu when clicking on links
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+  
+  // Close menu when pressing Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      closeMobileMenu();
+    }
+  });
+})();
+
 /* CONTACT POPUP (click toggle) */
 const contactBtn = document.getElementById('contactBtn');
 const contactPopup = document.getElementById('contactPopup');
@@ -283,3 +336,16 @@ window.findLocation = findLocation;
   renderReviews();
 })();
 
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
