@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Review Trubi - Testimoni Pelanggan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .review-hero {
+      position: relative;
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, var(--emas) 0%, var(--emas-dark) 100%);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .review-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.3)"/><circle cx="50" cy="40" r="1" fill="rgba(255,255,255,0.3)"/><circle cx="80" cy="20" r="1" fill="rgba(255,255,255,0.3)"/><circle cx="30" cy="70" r="1" fill="rgba(255,255,255,0.3)"/><circle cx="70" cy="60" r="1" fill="rgba(255,255,255,0.3)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .review-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .rating-overview {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .rating-item {
+      text-align: center;
+    }
+
+    .rating-number {
+      display: block;
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 5px;
+    }
+
+    .rating-stars {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .rating-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .review-filter {
+      padding: 40px 0;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .filter-options {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-option {
+      padding: 12px 24px;
+      background: white;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 25px;
+      font-weight: 600;
+      color: var(--coklat);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-option:hover {
+      border-color: var(--ungu-muda);
+      color: var(--ungu);
+    }
+
+    .filter-option.active {
+      background: var(--ungu);
+      border-color: var(--ungu);
+      color: white;
+    }
+
+    .reviews-section {
+      padding: 80px 0;
+      background: var(--cream);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .review-card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .reviewer-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ungu), var(--ungu-gelap));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .reviewer-info h3 {
+      color: var(--ungu);
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+
+    .review-date {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .review-rating {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+
+    .star {
+      color: #ffd700;
+      font-size: 1.2rem;
+    }
+
+    .star.empty {
+      color: #e0e0e0;
+    }
+
+    .review-content {
+      color: var(--coklat);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .review-product {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(107, 53, 166, 0.1);
+      color: var(--ungu);
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .review-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .action-btn:hover {
+      color: var(--ungu);
+    }
+
+    .verified-badge {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: var(--success);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .testimonial-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .testimonial-slider {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .testimonial-slide {
+      min-width: 100%;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .testimonial-content {
+      background: var(--cream);
+      padding: 40px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .testimonial-content::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 4rem;
+      color: var(--ungu-muda);
+      font-family: serif;
+    }
+
+    .testimonial-text {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--coklat);
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--ungu);
+      margin-bottom: 5px;
+    }
+
+    .testimonial-role {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 2px solid rgba(0,0,0,0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--ungu);
+    }
+
+    .slider-nav:hover {
+      background: var(--ungu);
+      color: white;
+      border-color: var(--ungu);
+    }
+
+    .slider-prev {
+      left: -70px;
+    }
+
+    .slider-next {
+      right: -70px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slider-dot.active {
+      background: var(--ungu);
+      transform: scale(1.2);
+    }
+
+    .add-review-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+    }
+
+    .review-form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--ungu);
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--ungu);
+      box-shadow: 0 0 0 3px rgba(107, 53, 166, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .rating-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .rating-star {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .rating-star:hover,
+    .rating-star.active {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--ungu), var(--ungu-gelap));
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(107, 53, 166, 0.3);
+    }
+
+    .social-proof {
+      padding: 60px 0;
+      background: white;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .proof-item {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .proof-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .proof-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--ungu);
+      margin-bottom: 5px;
+    }
+
+    .proof-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      .reviews-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+      
+      .rating-overview {
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .review-hero {
+        padding: 100px 0 60px;
+      }
+      
+      .rating-overview {
+        gap: 20px;
+      }
+      
+      .rating-number {
+        font-size: 2.5rem;
+      }
+      
+      .filter-options {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      
+      .testimonial-slide {
+        padding: 20px;
+      }
+      
+      .testimonial-content {
+        padding: 30px 20px;
+      }
+      
+      .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .slider-prev {
+        left: -50px;
+      }
+      
+      .slider-next {
+        right: -50px;
+      }
+      
+      .review-form-container {
+        padding: 30px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .rating-overview {
+        gap: 15px;
+      }
+      
+      .rating-item {
+        flex: 1;
+        min-width: 120px;
+      }
+      
+      .testimonial-content::before {
+        top: 10px;
+        left: 20px;
+        font-size: 3rem;
+      }
+      
+      .proof-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .review-card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .review-card:nth-child(odd) {
+      animation-delay: 0.1s;
+    }
+
+    .review-card:nth-child(even) {
+      animation-delay: 0.2s;
+    }
+
+    .fab-review {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--emas), var(--emas-dark));
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 25px rgba(245, 182, 66, 0.4);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab-review:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 12px 30px rgba(245, 182, 66, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-circle">
+          <span>⭐</span>
+        </div>
+        <h2>Loading Reviews</h2>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>Trubi Milk Cheese</h1>
+          <p>Ubi • Susu • Keju</p>
+        </div>
+      </div>
+
+      <nav class="nav desktop-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="about.html" class="nav-link">🍠 Tentang</a>
+        <a href="products.html" class="nav-link">🥤 Produk</a>
+        <a href="gallery.html" class="nav-link">📸 Galeri</a>
+        <a href="location.html" class="nav-link">📍 Lokasi</a>
+        <a href="review.html" class="nav-link active">⭐ Review</a>
+      </nav>
+
+      <div class="mobile-nav">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div id="mobileMenu" class="mobile-menu">
+          <div class="mobile-menu-content">
+            <div class="mobile-brand">
+              <img src="assets/images/logo.jpg" alt="Trubi Logo">
+              <div>
+                <strong>Trubi Milk Cheese</strong>
+                <p>Ubi • Susu • Keju</p>
+              </div>
+            </div>
+            
+            <a href="index.html" class="mobile-nav-link">
+              <span class="nav-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+              <span class="nav-icon">🍠</span>
+              <span>Tentang</span>
+            </a>
+            <a href="products.html" class="mobile-nav-link">
+              <span class="nav-icon">🥤</span>
+              <span>Produk</span>
+            </a>
+            <a href="gallery.html" class="mobile-nav-link">
+              <span class="nav-icon">📸</span>
+              <span>Galeri</span>
+            </a>
+            <a href="location.html" class="mobile-nav-link">
+              <span class="nav-icon">📍</span>
+              <span>Lokasi</span>
+            </a>
+            <a href="review.html" class="mobile-nav-link active">
+              <span class="nav-icon">⭐</span>
+              <span>Review</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- REVIEW HERO -->
+  <section class="review-hero">
+    <div class="wrap review-hero-content">
+      <h1 class="page-title">Review Pelanggan</h1>
+      <p class="page-subtitle">Apa kata mereka tentang Trubi Milk Cheese</p>
+      
+      <div class="rating-overview">
+        <div class="rating-item">
+          <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+          <span class="rating-number">4.8</span>
+          <span class="rating-label">Rating Average</span>
+        </div>
+        <div class="rating-item">
+          <span class="rating-number">1.2K+</span>
+          <span class="rating-label">Total Reviews</span>
+        </div>
+        <div class="rating-item">
+          <span class="rating-number">98%</span>
+          <span class="rating-label">Would Recommend</span>
+        </div>
+        <div class="rating-item">
+          <span class="rating-number">4.9</span>
+          <span class="rating-label">Google Reviews</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW FILTER -->
+  <section class="review-filter">
+    <div class="wrap">
+      <div class="filter-options">
+        <button class="filter-option active" data-filter="all">
+          <span>🌟</span> Semua Review
+        </button>
+        <button class="filter-option" data-filter="5">
+          <span>⭐⭐⭐⭐⭐</span> 5 Bintang
+        </button>
+        <button class="filter-option" data-filter="4">
+          <span>⭐⭐⭐⭐</span> 4 Bintang
+        </button>
+        <button class="filter-option" data-filter="3">
+          <span>⭐⭐⭐</span> 3 Bintang
+        </button>
+        <button class="filter-option" data-filter="verified">
+          <span>✅</span> Verified
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS GRID -->
+  <section class="reviews-section">
+    <div class="wrap">
+      <h2 class="section-title">Testimoni Terbaru</h2>
+      <p class="section-subtitle">Pengalaman nyata dari pelanggan setia Trubi</p>
+      
+      <div class="reviews-grid" id="reviewsGrid">
+        <!-- Review 1 -->
+        <div class="review-card" data-rating="5" data-verified="true">
+          <div class="verified-badge">✅ Verified</div>
+          <div class="review-header">
+            <div class="reviewer-avatar">S</div>
+            <div class="reviewer-info">
+              <h3>Sarah Wijaya</h3>
+              <div class="review-date">2 hari yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="review-content">"Trubi Original beneran enak banget! Rasanya unik, perpaduan ubi ungu dan keju yang pas. Gak terlalu manis dan teksturnya creamy banget. Udah coba 3x dalam seminggu!"</p>
+          <div class="review-product">🥤 Trubi Original</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (24)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card" data-rating="5" data-verified="true">
+          <div class="verified-badge">✅ Verified</div>
+          <div class="review-header">
+            <div class="reviewer-avatar">R</div>
+            <div class="reviewer-info">
+              <h3>Rizki Pratama</h3>
+              <div class="review-date">1 minggu yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="review-content">"Trubi Choco Cheese favorit baru saya! Coklatnya premium banget dan kombinasi dengan keju itu genius. Teman-teman kantor pada suka, sekarang jadi langganan order bareng tiap Jumat."</p>
+          <div class="review-product">🥤 Trubi Choco Cheese</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (18)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card" data-rating="5" data-verified="true">
+          <div class="review-header">
+            <div class="reviewer-avatar">D</div>
+            <div class="reviewer-info">
+              <h3>Diana Sari</h3>
+              <div class="review-date">3 minggu yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="review-content">"Pertama kali coba Trubi Matcha Cheese dan langsung jatuh cinta! Matchanya authentic dan gak pahit, cream cheesenya bikin creamy banget. Recommended buat matcha lovers!"</p>
+          <div class="review-product">🥤 Trubi Matcha Cheese</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (15)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card" data-rating="4" data-verified="true">
+          <div class="verified-badge">✅ Verified</div>
+          <div class="review-header">
+            <div class="reviewer-avatar">A</div>
+            <div class="reviewer-info">
+              <h3>Andi Setiawan</h3>
+              <div class="review-date">1 bulan yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star empty">⭐</span>
+          </div>
+          <p class="review-content">"Trubi Boba Trio enak banget! Toppingnya lengkap dan boba-nya kenyal pas. Cuma agak lama dikit pembuatannya karena ramai, tapi worth it untuk rasa segini enak."</p>
+          <div class="review-product">🥤 Trubi Boba Trio</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (12)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card" data-rating="5" data-verified="true">
+          <div class="verified-badge">✅ Verified</div>
+          <div class="review-header">
+            <div class="reviewer-avatar">M</div>
+            <div class="reviewer-info">
+              <h3>Maya Kirana</h3>
+              <div class="review-date">2 bulan yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="review-content">"Udah coba hampir semua varian Trubi dan semuanya enak! Yang paling spesial buat saya tetep Trubi Original. Rasanya nostalgic banget, kayak minum sesuatu yang familiar tapi tetap unik."</p>
+          <div class="review-product">🥤 All Variants</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (31)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card" data-rating="5" data-verified="true">
+          <div class="review-header">
+            <div class="reviewer-avatar">B</div>
+            <div class="reviewer-info">
+              <h3>Budi Santoso</h3>
+              <div class="review-date">2 bulan yang lalu</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <p class="review-content">"Pelayanan di gerai Kelapa Gading sangat ramah dan cepat. Minumannya konsisten enaknya. Sekarang jadi tempat nongkrong favorit saya sama teman-teman."</p>
+          <div class="review-product">📍 Kelapa Gading Store</div>
+          <div class="review-actions">
+            <button class="action-btn">
+              <span>👍</span> Helpful (9)
+            </button>
+            <button class="action-btn">
+              <span>💬</span> Reply
+            </button>
+            <button class="action-btn">
+              <span>📤</span> Share
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-all">
+        <button class="btn btn-outline" id="loadMoreReviews">
+          <span>Muat Lebih Banyak Review</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL SLIDER -->
+  <section class="testimonial-section">
+    <div class="wrap">
+      <h2 class="section-title">Featured Testimonials</h2>
+      <p class="section-subtitle">Cerita spesial dari pelanggan terbaik kami</p>
+      
+      <div class="testimonial-slider">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="testimonial-text">"Sebagai food blogger, saya sudah mencoba berbagai minuman kekinian. Trubi benar-benar berbeda! Kombinasi ubi ungu lokal dengan keju premium menunjukkan kreativitas dan respect terhadap bahan lokal. Rasa yang authentic dan gak cuma ikut-ikutan trend."</p>
+              <div class="testimonial-author">@foodexplorer_jkt</div>
+              <div class="testimonial-role">Food Blogger • 45K Followers</div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="testimonial-text">"Anak-anak saya yang biasanya susah minum susu sekarang malah request Trubi tiap hari. Saya senang karena mengandung ubi ungu yang bergizi dan gak pakai pengawet. Sehat dan enak, kombinasi yang sempurna untuk keluarga!"</p>
+              <div class="testimonial-author">Ibu Sari - Mother of 2</div>
+              <div class="testimonial-role">Pelanggan Setia • 6 Bulan</div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="testimonial-text">"Sebagai dosen gizi, saya appreciate inovasi Trubi yang memanfaatkan ubi ungu lokal. Kaya antioksidan dan lebih sehat daripada minuman kekinian biasa. Proses pembuatannya juga terjaga kebersihannya. Two thumbs up!"</p>
+              <div class="testimonial-author">Dr. Maya Sari, M.Gizi</div>
+              <div class="testimonial-role">Dosen Gizi • Universitas Negeri</div>
+            </div>
+          </div>
+        </div>
+        
+        <button class="slider-nav slider-prev" id="testimonialPrev">‹</button>
+        <button class="slider-nav slider-next" id="testimonialNext">›</button>
+        
+        <div class="slider-dots" id="testimonialDots">
+          <div class="slider-dot active"></div>
+          <div class="slider-dot"></div>
+          <div class="slider-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <div class="wrap">
+      <div class="proof-grid">
+        <div class="proof-item">
+          <span class="proof-icon">⭐</span>
+          <div class="proof-number">4.8/5</div>
+          <div class="proof-label">Google Reviews</div>
+        </div>
+        <div class="proof-item">
+          <span class="proof-icon">📱</span>
+          <div class="proof-number">4.9/5</div>
+          <div class="proof-label">GoFood Rating</div>
+        </div>
+        <div class="proof-item">
+          <span class="proof-icon">🛵</span>
+          <div class="proof-number">4.8/5</div>
+          <div class="proof-label">GrabFood Rating</div>
+        </div>
+        <div class="proof-item">
+          <span class="proof-icon">📸</span>
+          <div class="proof-number">1.5K+</div>
+          <div class="proof-label">Instagram Tags</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD REVIEW SECTION -->
+  <section class="add-review-section">
+    <div class="wrap">
+      <h2 class="section-title">Bagikan Pengalamanmu</h2>
+      <p class="section-subtitle">Ceritakan kesanmu tentang Trubi Milk Cheese</p>
+      
+      <div class="review-form-container">
+        <form id="reviewForm">
+          <div class="form-group">
+            <label class="form-label">Nama</label>
+            <input type="text" class="form-input" placeholder="Masukkan nama Anda" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Produk yang Dipesan</label>
+            <select class="form-select" required>
+              <option value="">Pilih produk</option>
+              <option value="original">Trubi Original</option>
+              <option value="choco">Trubi Choco Cheese</option>
+              <option value="matcha">Trubi Matcha Cheese</option>
+              <option value="boba">Trubi Boba Trio</option>
+              <option value="redvelvet">Trubi Red Velvet</option>
+              <option value="summer">Trubi Summer Special</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Rating</label>
+            <div class="rating-input" id="ratingInput">
+              <span class="rating-star" data-rating="1">⭐</span>
+              <span class="rating-star" data-rating="2">⭐</span>
+              <span class="rating-star" data-rating="3">⭐</span>
+              <span class="rating-star" data-rating="4">⭐</span>
+              <span class="rating-star" data-rating="5">⭐</span>
+            </div>
+            <input type="hidden" id="selectedRating" name="rating" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Review Anda</label>
+            <textarea class="form-textarea" placeholder="Bagikan pengalaman Anda dengan Trubi..." required></textarea>
+          </div>
+          
+          <button type="submit" class="form-submit">
+            <span class="btn-icon">📝</span>
+            Kirim Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING REVIEW BUTTON -->
+  <button class="fab-review" onclick="scrollToReviewForm()">
+    ✍️
+  </button>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+        <div>
+          <strong>Trubi Milk Cheese</strong>
+          <div class="muted">Ubi • Susu • Keju</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Tentang</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="gallery.html">Galeri</a></li>
+          <li><a href="location.html">Lokasi</a></li>
+          <li><a href="review.html">Review</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <div class="contact-info">
+          <a href="https://wa.me/6289525585293">💬 0895-2558-5293</a>
+          <a href="https://www.instagram.com/trubi_milk_cheese">📷 @trubi_milk_cheese</a>
+          <a href="https://www.tiktok.com/@trubi.milk.cheese">🎵 @trubi.milk.cheese</a>
+        </div>
+      </div>
+
+      <div class="footer-hours">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Sabtu: 09:00 - 21:00</p>
+        <p class="muted">Minggu: Tutup</p>
+      </div>
+    </div>
+
+    <div class="wrap copyright">
+      <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // REVIEW SPECIFIC JAVASCRIPT
+    document.addEventListener('DOMContentLoaded', function() {
+      initReviewPage();
+    });
+
+    function initReviewPage() {
+      // Review filter functionality
+      const filterOptions = document.querySelectorAll('.filter-option');
+      const reviewCards = document.querySelectorAll('.review-card');
+      const loadMoreBtn = document.getElementById('loadMoreReviews');
+
+      filterOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove active class from all options
+          filterOptions.forEach(opt => opt.classList.remove('active'));
+          // Add active class to clicked option
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          reviewCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+            } else if (filter === 'verified') {
+              if (card.getAttribute('data-verified') === 'true') {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            } else {
+              if (card.getAttribute('data-rating') === filter) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+            
+            // Add animation
+            setTimeout(() => {
+              if (card.style.display === 'block') {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+              }
+            }, 50);
+          });
+        });
+      });
+
+      // Load more functionality
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          // Simulate loading more reviews
+          this.innerHTML = '<span class="btn-icon">⏳</span>Loading...';
+          
+          setTimeout(() => {
+            // In real implementation, you would fetch more data here
+            this.innerHTML = '<span>Semua Review Telah Dimuat</span>';
+            this.disabled = true;
+            this.style.opacity = '0.6';
+          }, 1500);
+        });
+      }
+
+      // Rating input functionality
+      const ratingStars = document.querySelectorAll('.rating-star');
+      const selectedRating = document.getElementById('selectedRating');
+      
+      ratingStars.forEach(star => {
+        star.addEventListener('click', function() {
+          const rating = this.getAttribute('data-rating');
+          selectedRating.value = rating;
+          
+          // Update star display
+          ratingStars.forEach((s, index) => {
+            if (index < rating) {
+              s.classList.add('active');
+            } else {
+              s.classList.remove('active');
+            }
+          });
+        });
+        
+        star.addEventListener('mouseover', function() {
+          const rating = this.getAttribute('data-rating');
+          ratingStars.forEach((s, index) => {
+            if (index < rating) {
+              s.style.color = '#ffd700';
+            }
+          });
+        });
+        
+        star.addEventListener('mouseout', function() {
+          ratingStars.forEach((s, index) => {
+            if (!s.classList.contains('active')) {
+              s.style.color = '#e0e0e0';
+            }
+          });
+        });
+      });
+
+      // Review form submission
+      const reviewForm = document.getElementById('reviewForm');
+      if (reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (!selectedRating.value) {
+            alert('Please select a rating!');
+            return;
+          }
+          
+          // Simulate form submission
+          const submitBtn = this.querySelector('.form-submit');
+          submitBtn.innerHTML = '<span class="btn-icon">⏳</span>Mengirim...';
+          submitBtn.disabled = true;
+          
+          setTimeout(() => {
+            alert('Terima kasih atas review Anda! Review akan ditampilkan setelah moderasi.');
+            reviewForm.reset();
+            ratingStars.forEach(star => star.classList.remove('active'));
+            selectedRating.value = '';
+            submitBtn.innerHTML = '<span class="btn-icon">📝</span>Kirim Review';
+            submitBtn.disabled = false;
+          }, 2000);
+        });
+      }
+
+      // Testimonial slider
+      initTestimonialSlider();
+
+      // Helpful buttons functionality
+      initHelpfulButtons();
+    }
+
+    function initTestimonialSlider() {
+      const track = document.getElementById('testimonialTrack');
+      const prevBtn = document.getElementById('testimonialPrev');
+      const nextBtn = document.getElementById('testimonialNext');
+      const dots = document.querySelectorAll('.slider-dot');
+      
+      let currentSlide = 0;
+      const totalSlides = document.querySelectorAll('.testimonial-slide').length;
+
+      function goToSlide(index) {
+        currentSlide = index;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update dots
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
+
+      prevBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        goToSlide(currentSlide);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+      });
+
+      // Dot click events
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+      });
+
+      // Auto slide
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+      }, 6000);
+    }
+
+    function initHelpfulButtons() {
+      const helpfulBtns = document.querySelectorAll('.action-btn');
+      helpfulBtns.forEach(btn => {
+        if (btn.textContent.includes('Helpful')) {
+          btn.addEventListener('click', function() {
+            const countSpan = this.querySelector('span');
+            const currentCount = parseInt(countSpan.textContent.match(/\((\d+)\)/)[1]);
+            countSpan.textContent = `👍 Helpful (${currentCount + 1})`;
+            this.style.color = '#6b35a6';
+            this.style.fontWeight = '600';
+          });
+        }
+      });
+    }
+
+    function scrollToReviewForm() {
+      document.querySelector('.add-review-section').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    }
+  </script>
+</body>
+</html>
