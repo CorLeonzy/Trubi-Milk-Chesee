@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menu Produk - Trubi Milk Cheese</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>Trubi Milk Cheese</h1>
+          <p>Ubi • Susu • Keju</p>
+        </div>
+      </div>
+
+      <nav class="nav desktop-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="about.html" class="nav-link">🍠 Tentang</a>
+        <a href="products.html" class="nav-link active">🥤 Produk</a>
+        <a href="gallery.html" class="nav-link">📸 Galeri</a>
+        <a href="location.html" class="nav-link">📍 Lokasi</a>
+        <a href="review.html" class="nav-link">⭐ Review</a>
+      </nav>
+
+      <div class="mobile-nav">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div id="mobileMenu" class="mobile-menu">
+          <div class="mobile-menu-content">
+            <div class="mobile-brand">
+              <img src="assets/images/logo.jpg" alt="Trubi Logo">
+              <div>
+                <strong>Trubi Milk Cheese</strong>
+                <p>Ubi • Susu • Keju</p>
+              </div>
+            </div>
+            
+            <a href="index.html" class="mobile-nav-link">
+              <span class="nav-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+              <span class="nav-icon">🍠</span>
+              <span>Tentang</span>
+            </a>
+            <a href="products.html" class="mobile-nav-link active">
+              <span class="nav-icon">🥤</span>
+              <span>Produk</span>
+            </a>
+            <a href="gallery.html" class="mobile-nav-link">
+              <span class="nav-icon">📸</span>
+              <span>Galeri</span>
+            </a>
+            <a href="location.html" class="mobile-nav-link">
+              <span class="nav-icon">📍</span>
+              <span>Lokasi</span>
+            </a>
+            <a href="review.html" class="mobile-nav-link">
+              <span class="nav-icon">⭐</span>
+              <span>Review</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="page-hero-content">
+        <h1 class="page-title">Menu Produk</h1>
+        <p class="page-subtitle">Pilih favoritmu dari berbagai varian Trubi yang menggoda</p>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Menu Produk</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS FILTER -->
+  <section class="products-filter">
+    <div class="wrap">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Semua</button>
+        <button class="filter-tab" data-filter="original">Original Series</button>
+        <button class="filter-tab" data-filter="premium">Premium Series</button>
+        <button class="filter-tab" data-filter="special">Spesial</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <section class="products-grid-section">
+    <div class="wrap">
+      <div class="products-container">
+        <!-- Product 1 -->
+        <div class="product-card" data-category="original">
+          <div class="product-image">
+            <img src="assets/images/trubi1.jpg" alt="Trubi Original">
+            <div class="product-badge bestseller">🔥 Bestseller</div>
+          </div>
+          <div class="product-info">
+            <h3>Trubi Original</h3>
+            <p class="product-desc">Perpaduan klasik ubi ungu asli dengan susu full cream dan cream cheese premium.</p>
+            <div class="product-details">
+              <span class="detail">🍠 Ubi Ungu Asli</span>
+              <span class="detail">🥛 Susu Full Cream</span>
+              <span class="detail">🧀 Cream Cheese</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 15.000</span>
+              <span class="price-note">Reguler</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Original')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-category="premium">
+          <div class="product-image">
+            <img src="assets/images/trubi3.jpg" alt="Trubi Choco Cheese">
+            <div class="product-badge new">🆕 New</div>
+          </div>
+          <div class="product-info">
+            <h3>Trubi Choco Cheese</h3>
+            <p class="product-desc">Coklat Belgia premium dipadukan dengan keju lembut dan susu segar.</p>
+            <div class="product-details">
+              <span class="detail">🍫 Coklat Premium</span>
+              <span class="detail">🧀 Keju Lembut</span>
+              <span class="detail">🥛 Susu Segar</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 18.000</span>
+              <span class="price-note">Premium</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Choco Cheese')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-category="special">
+          <div class="product-image">
+            <img src="assets/images/trubi5.jpg" alt="Trubi Boba Trio">
+            <div class="product-badge special">⭐ Spesial</div>
+          </div>
+          <div class="product-info">
+            <h3>Trubi Boba Trio</h3>
+            <p class="product-desc">Trubi original dengan trio topping boba, jelly, dan pearl yang menyegarkan.</p>
+            <div class="product-details">
+              <span class="detail">🫧 Boba Ball</span>
+              <span class="detail">🍮 Jelly Cube</span>
+              <span class="detail">🌟 Pearl</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 20.000</span>
+              <span class="price-note">With Topping</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Boba Trio')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-category="original">
+          <div class="product-image">
+            <img src="assets/images/trubi2.jpg" alt="Trubi Matcha Cheese">
+          </div>
+          <div class="product-info">
+            <h3>Trubi Matcha Cheese</h3>
+            <p class="product-desc">Matcha Jepang asli dengan cream cheese yang creamy dan nikmat.</p>
+            <div class="product-details">
+              <span class="detail">🍵 Matcha Jepang</span>
+              <span class="detail">🧀 Cream Cheese</span>
+              <span class="detail">💚 Natural</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 17.000</span>
+              <span class="price-note">Reguler</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Matcha Cheese')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card" data-category="premium">
+          <div class="product-image">
+            <img src="assets/images/trubi4.jpg" alt="Trubi Red Velvet">
+            <div class="product-badge limited">⚡ Limited</div>
+          </div>
+          <div class="product-info">
+            <h3>Trubi Red Velvet</h3>
+            <p class="product-desc">Red velvet premium dengan cream cheese frosting yang lembut.</p>
+            <div class="product-details">
+              <span class="detail">❤️ Red Velvet</span>
+              <span class="detail">🧁 Cream Frosting</span>
+              <span class="detail">🎂 Premium</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 19.000</span>
+              <span class="price-note">Premium</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Red Velvet')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card" data-category="special">
+          <div class="product-image">
+            <img src="assets/images/trubi6.jpg" alt="Trubi Summer Special">
+          </div>
+          <div class="product-info">
+            <h3>Trubi Summer Special</h3>
+            <p class="product-desc">Varian segar dengan buah-buahan musiman dan mint yang menyegarkan.</p>
+            <div class="product-details">
+              <span class="detail">🍓 Buah Segar</span>
+              <span class="detail">🌿 Mint</span>
+              <span class="detail">☀️ Summer</span>
+            </div>
+            <div class="product-price">
+              <span class="price">Rp 16.000</span>
+              <span class="price-note">Seasonal</span>
+            </div>
+            <button class="btn-order" onclick="orderProduct('Trubi Summer Special')">
+              <span class="btn-icon">💬</span>
+              Order Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA ORDER -->
+  <section class="order-cta">
+    <div class="wrap">
+      <div class="cta-content">
+        <h2>Mau Coba Semua Varian?</h2>
+        <p>Pesan sekarang via WhatsApp dan dapatkan promo spesial!</p>
+        <a href="https://wa.me/6289525585293?text=Halo%20Trubi!%20Saya%20mau%20pesan%20minuman%20Trubi" class="btn-whatsapp-large">
+          <span class="btn-icon">💬</span>
+          Order via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+        <div>
+          <strong>Trubi Milk Cheese</strong>
+          <div class="muted">Ubi • Susu • Keju</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Tentang</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="gallery.html">Galeri</a></li>
+          <li><a href="location.html">Lokasi</a></li>
+          <li><a href="review.html">Review</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <div class="contact-info">
+          <a href="https://wa.me/6289525585293">💬 0895-2558-5293</a>
+          <a href="https://www.instagram.com/trubi_milk_cheese">📷 @trubi_milk_cheese</a>
+          <a href="https://www.tiktok.com/@trubi.milk.cheese">🎵 @trubi.milk.cheese</a>
+        </div>
+      </div>
+
+      <div class="footer-hours">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Sabtu: 09:00 - 21:00</p>
+        <p class="muted">Minggu: Tutup</p>
+      </div>
+    </div>
+
+    <div class="wrap copyright">
+      <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function orderProduct(productName) {
+      const message = `Halo Trubi! Saya mau pesan ${productName}`;
+      const whatsappUrl = `https://wa.me/6289525585293?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const productCards = document.querySelectorAll('.product-card');
+
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs
+          filterTabs.forEach(t => t.classList.remove('active'));
+          // Add active class to clicked tab
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          productCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
