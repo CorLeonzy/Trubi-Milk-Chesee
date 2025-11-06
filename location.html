@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lokasi Trubi - Temukan Kami</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* LOCATION SPECIFIC STYLES */
+    .location-hero {
+      position: relative;
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, var(--ungu) 0%, var(--ungu-gelap) 100%);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .location-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="map" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 0h100v100H0z" fill="none"/><path d="M20 20h60v60H20z" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern></defs><rect width="100" height="100" fill="url(%23map)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .location-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .location-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .location-stat {
+      text-align: center;
+    }
+
+    .location-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--emas);
+      margin-bottom: 5px;
+    }
+
+    .location-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* LOCATION CONTENT */
+    .location-content {
+      padding: 80px 0;
+      background: var(--cream);
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    /* MAP SECTION */
+    .map-section {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      height: 500px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .map-overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .map-search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--ungu);
+      box-shadow: 0 0 0 3px rgba(107, 53, 166, 0.1);
+    }
+
+    .search-btn {
+      background: var(--ungu);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background: var(--ungu-gelap);
+      transform: translateY(-2px);
+    }
+
+    .map-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .map-btn {
+      background: white;
+      border: 2px solid rgba(0,0,0,0.1);
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .map-btn:hover {
+      border-color: var(--ungu);
+      color: var(--ungu);
+    }
+
+    .map-btn.active {
+      background: var(--ungu);
+      border-color: var(--ungu);
+      color: white;
+    }
+
+    /* LOCATION INFO */
+    .location-info {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(0,0,0,0.05);
+    }
+
+    .store-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--ungu), var(--ungu-gelap));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .store-info h2 {
+      color: var(--ungu);
+      margin-bottom: 5px;
+      font-size: 1.5rem;
+    }
+
+    .store-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--emas);
+      font-weight: 600;
+    }
+
+    .info-details {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .detail-item {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .detail-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(107, 53, 166, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ungu);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .detail-content h4 {
+      color: var(--ungu);
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .detail-content p {
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .opening-hours {
+      background: rgba(245, 182, 66, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border-left: 4px solid var(--emas);
+    }
+
+    .hours-title {
+      color: var(--emas);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hours-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .hour-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(245, 182, 66, 0.2);
+    }
+
+    .hour-item:last-child {
+      border-bottom: none;
+    }
+
+    .day {
+      font-weight: 600;
+      color: var(--coklat);
+    }
+
+    .time {
+      color: var(--muted);
+    }
+
+    .time.closed {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    /* LOCATION ACTIONS */
+    .location-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .action-card {
+      background: white;
+      padding: 25px 20px;
+      border-radius: 15px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--coklat);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(0,0,0,0.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .action-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      border-color: var(--ungu-muda);
+    }
+
+    .action-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .action-card h3 {
+      color: var(--ungu);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .action-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* BRANCHES SECTION */
+    .branches-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .branches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .branch-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .branch-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .branch-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .branch-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .branch-card:hover .branch-image img {
+      transform: scale(1.05);
+    }
+
+    .branch-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--emas);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .branch-info {
+      padding: 25px;
+    }
+
+    .branch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .branch-name {
+      color: var(--ungu);
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .branch-distance {
+      background: rgba(107, 53, 166, 0.1);
+      color: var(--ungu);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .branch-address {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .branch-features {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .feature-tag {
+      background: rgba(107, 53, 166, 0.1);
+      color: var(--ungu);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .branch-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .branch-btn {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--ungu);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--ungu-gelap);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ungu);
+      border: 2px solid var(--ungu-muda);
+    }
+
+    .btn-outline:hover {
+      background: var(--ungu);
+      color: white;
+    }
+
+    /* TRANSPORT SECTION */
+    .transport-section {
+      padding: 80px 0;
+      background: var(--cream);
+    }
+
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .transport-card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .transport-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .transport-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .transport-card h3 {
+      color: var(--ungu);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .transport-info {
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .transport-time {
+      background: rgba(107, 53, 166, 0.1);
+      color: var(--ungu);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    /* CTA SECTION */
+    .location-cta {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--emas), var(--emas-dark));
+      color: white;
+      text-align: center;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .cta-card {
+      background: rgba(255,255,255,0.1);
+      padding: 30px 25px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .cta-card:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-5px);
+    }
+
+    .cta-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .cta-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .cta-card p {
+      opacity: 0.9;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* FLOATING ACTION */
+    .floating-nav {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .floating-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+    }
+
+    .btn-navigation {
+      background: linear-gradient(135deg, var(--ungu), var(--ungu-gelap));
+      color: white;
+    }
+
+    .btn-call {
+      background: linear-gradient(135deg, var(--emas), var(--emas-dark));
+      color: white;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .location-grid {
+        gap: 40px;
+      }
+      
+      .branches-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .location-hero {
+        padding: 100px 0 60px;
+      }
+      
+      .location-stats {
+        gap: 20px;
+      }
+      
+      .location-number {
+        font-size: 2rem;
+      }
+      
+      .location-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .map-section {
+        height: 400px;
+      }
+      
+      .map-overlay {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 15px;
+      }
+      
+      .map-search {
+        flex-direction: column;
+      }
+      
+      .location-actions {
+        grid-template-columns: 1fr;
+      }
+      
+      .branch-actions {
+        flex-direction: column;
+      }
+      
+      .floating-nav {
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .location-stats {
+        gap: 15px;
+      }
+      
+      .location-stat {
+        flex: 1;
+        min-width: 100px;
+      }
+      
+      .map-section {
+        height: 300px;
+      }
+      
+      .info-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .transport-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ANIMATIONS */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .bounce {
+      animation: bounce 2s infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-circle">
+          <span>📍</span>
+        </div>
+        <h2>Loading Location</h2>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>Trubi Milk Cheese</h1>
+          <p>Ubi • Susu • Keju</p>
+        </div>
+      </div>
+
+      <nav class="nav desktop-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="about.html" class="nav-link">🍠 Tentang</a>
+        <a href="products.html" class="nav-link">🥤 Produk</a>
+        <a href="gallery.html" class="nav-link">📸 Galeri</a>
+        <a href="location.html" class="nav-link active">📍 Lokasi</a>
+        <a href="review.html" class="nav-link">⭐ Review</a>
+      </nav>
+
+      <div class="mobile-nav">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div id="mobileMenu" class="mobile-menu">
+          <div class="mobile-menu-content">
+            <div class="mobile-brand">
+              <img src="assets/images/logo.jpg" alt="Trubi Logo">
+              <div>
+                <strong>Trubi Milk Cheese</strong>
+                <p>Ubi • Susu • Keju</p>
+              </div>
+            </div>
+            
+            <a href="index.html" class="mobile-nav-link">
+              <span class="nav-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+              <span class="nav-icon">🍠</span>
+              <span>Tentang</span>
+            </a>
+            <a href="products.html" class="mobile-nav-link">
+              <span class="nav-icon">🥤</span>
+              <span>Produk</span>
+            </a>
+            <a href="gallery.html" class="mobile-nav-link">
+              <span class="nav-icon">📸</span>
+              <span>Galeri</span>
+            </a>
+            <a href="location.html" class="mobile-nav-link active">
+              <span class="nav-icon">📍</span>
+              <span>Lokasi</span>
+            </a>
+            <a href="review.html" class="mobile-nav-link">
+              <span class="nav-icon">⭐</span>
+              <span>Review</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOCATION HERO -->
+  <section class="location-hero">
+    <div class="wrap location-hero-content">
+      <h1 class="page-title">Lokasi Trubi</h1>
+      <p class="page-subtitle">Temukan Gerai Terdekat & Nikmati Kelezatan Trubi</p>
+      
+      <div class="location-stats">
+        <div class="location-stat">
+          <span class="location-number">5+</span>
+          <span class="location-label">Gerai Aktif</span>
+        </div>
+        <div class="location-stat">
+          <span class="location-number">15K+</span>
+          <span class="location-label">Pengunjung</span>
+        </div>
+        <div class="location-stat">
+          <span class="location-number">4.8</span>
+          <span class="location-label">Rating Google</span>
+        </div>
+        <div class="location-stat">
+          <span class="location-number">24/7</span>
+          <span class="location-label">Online Order</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION CONTENT -->
+  <section class="location-content">
+    <div class="wrap">
+      <div class="location-grid">
+        <!-- MAP SECTION -->
+        <div class="map-section">
+          <div class="map-container">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.82256141529439!3d-6.194962295493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f539a7dd4f9d%3A0x7f6c54c46e5f7b0!2sSMK%20Hang%20Tuah%201%20Jakarta!5e0!3m2!1sid!2sid!4v1621234567890!5m2!1sid!2sid" 
+              class="map-iframe" 
+              allowfullscreen="" 
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            
+            <div class="map-overlay">
+              <div class="map-search">
+                <input type="text" class="search-input" placeholder="Cari lokasi terdekat...">
+                <button class="search-btn">Cari</button>
+              </div>
+              <div class="map-controls">
+                <button class="map-btn active" data-action="directions">
+                  <span>🗺️</span> Petunjuk Arah
+                </button>
+                <button class="map-btn" data-action="streetview">
+                  <span>👀</span> Street View
+                </button>
+                <button class="map-btn" data-action="save">
+                  <span>💾</span> Simpan Lokasi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOCATION INFO -->
+        <div class="location-info">
+          <div class="info-header">
+            <div class="store-icon">
+              🏪
+            </div>
+            <div class="store-info">
+              <h2>Trubi Main Store</h2>
+              <div class="store-rating">
+                <span>⭐⭐⭐⭐⭐</span>
+                <span>4.8 (1.2K reviews)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-details">
+            <div class="detail-item">
+              <div class="detail-icon">📍</div>
+              <div class="detail-content">
+                <h4>Alamat Lengkap</h4>
+                <p>Jl. Tabah Raya No.1, Kelapa Gading, Jakarta Utara 14240<br>
+                <small class="muted">Dekat SMK Hang Tuah 1 Jakarta</small></p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">📞</div>
+              <div class="detail-content">
+                <h4>Kontak</h4>
+                <p>+62 895-2558-5293 (WhatsApp)<br>
+                trubimilkcheese@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">🌐</div>
+              <div class="detail-content">
+                <h4>Sosial Media</h4>
+                <p>
+                  <strong>Instagram:</strong> @trubi_milk_cheese<br>
+                  <strong>TikTok:</strong> @trubi.milk.cheese<br>
+                  <strong>Google Business:</strong> Trubi Milk Cheese
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="opening-hours">
+            <h3 class="hours-title">🕒 Jam Operasional</h3>
+            <div class="hours-list">
+              <div class="hour-item">
+                <span class="day">Senin - Jumat</span>
+                <span class="time">09:00 - 21:00</span>
+              </div>
+              <div class="hour-item">
+                <span class="day">Sabtu</span>
+                <span class="time">09:00 - 22:00</span>
+              </div>
+              <div class="hour-item">
+                <span class="day">Minggu</span>
+                <span class="time closed">Libur</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-actions">
+            <a href="https://wa.me/6289525585293?text=Halo%20Trubi!%20Saya%20mau%20pesan%20dan%20bertanya%20tentang%20lokasi" class="action-card">
+              <span class="action-icon">💬</span>
+              <h3>Chat via WhatsApp</h3>
+              <p>Pesan sekarang & tanya lokasi</p>
+            </a>
+            
+            <a href="https://goo.gl/maps/your-map-link" class="action-card">
+              <span class="action-icon">🗺️</span>
+              <h3>Buka di Google Maps</h3>
+              <p>Dapatkan petunjuk arah</p>
+            </a>
+            
+            <a href="tel:+6289525585293" class="action-card">
+              <span class="action-icon">📞</span>
+              <h3>Telepon Kami</h3>
+              <p>Hubungi langsung</p>
+            </a>
+            
+            <a href="#branches" class="action-card">
+              <span class="action-icon">🏪</span>
+              <h3>Lihat Cabang Lain</h3>
+              <p>Temukan gerai terdekat</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES SECTION -->
+  <section class="branches-section" id="branches">
+    <div class="wrap">
+      <h2 class="section-title">Gerai Trubi Lainnya</h2>
+      <p class="section-subtitle">Temukan gerai terdekat untuk pengalaman Trubi yang terbaik</p>
+      
+      <div class="branches-grid">
+        <!-- Branch 1 -->
+        <div class="branch-card">
+          <div class="branch-image">
+            <img src="assets/images/trubi1.jpg" alt="Trubi Kelapa Gading">
+            <div class="branch-badge">Main Store</div>
+          </div>
+          <div class="branch-info">
+            <div class="branch-header">
+              <div>
+                <h3 class="branch-name">Kelapa Gading</h3>
+                <div class="store-rating">
+                  <span>⭐⭐⭐⭐⭐</span>
+                  <span>4.8</span>
+                </div>
+              </div>
+              <span class="branch-distance">0.1 km</span>
+            </div>
+            <p class="branch-address">Jl. Tabah Raya No.1, Kelapa Gading, Jakarta Utara</p>
+            <div class="branch-features">
+              <span class="feature-tag">🏠 Indoor</span>
+              <span class="feature-tag">🅿️ Parking</span>
+              <span class="feature-tag">📱 QR Order</span>
+            </div>
+            <div class="branch-actions">
+              <a href="https://goo.gl/maps/your-map-link" class="branch-btn btn-primary">Directions</a>
+              <a href="tel:+6289525585293" class="branch-btn btn-outline">Call</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch 2 -->
+        <div class="branch-card">
+          <div class="branch-image">
+            <img src="assets/images/trubi2.jpg" alt="Trubi Sunter">
+            <div class="branch-badge">New</div>
+          </div>
+          <div class="branch-info">
+            <div class="branch-header">
+              <div>
+                <h3 class="branch-name">Sunter Podomoro</h3>
+                <div class="store-rating">
+                  <span>⭐⭐⭐⭐⭐</span>
+                  <span>4.9</span>
+                </div>
+              </div>
+              <span class="branch-distance">2.3 km</span>
+            </div>
+            <p class="branch-address">Podomoro City, Jl. Letjen S. Parman, Sunter</p>
+            <div class="branch-features">
+              <span class="feature-tag">🏬 Mall</span>
+              <span class="feature-tag">🍽️ Dine-in</span>
+              <span class="feature-tag">🚗 Drive-thru</span>
+            </div>
+            <div class="branch-actions">
+              <a href="https://goo.gl/maps/your-map-link" class="branch-btn btn-primary">Directions</a>
+              <a href="tel:+6289525585293" class="branch-btn btn-outline">Call</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch 3 -->
+        <div class="branch-card">
+          <div class="branch-image">
+            <img src="assets/images/trubi3.jpg" alt="Trubi Pluit">
+          </div>
+          <div class="branch-info">
+            <div class="branch-header">
+              <div>
+                <h3 class="branch-name">Pluit Village</h3>
+                <div class="store-rating">
+                  <span>⭐⭐⭐⭐⭐</span>
+                  <span>4.7</span>
+                </div>
+              </div>
+              <span class="branch-distance">5.1 km</span>
+            </div>
+            <p class="branch-address">Pluit Village Mall, Lt. 2 Food Court</p>
+            <div class="branch-features">
+              <span class="feature-tag">🏬 Mall</span>
+              <span class="feature-tag">❄️ AC</span>
+              <span class="feature-tag">🪑 Outdoor</span>
+            </div>
+            <div class="branch-actions">
+              <a href="https://goo.gl/maps/your-map-link" class="branch-btn btn-primary">Directions</a>
+              <a href="tel:+6289525585293" class="branch-btn btn-outline">Call</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORT SECTION -->
+  <section class="transport-section">
+    <div class="wrap">
+      <h2 class="section-title">Akses Transportasi</h2>
+      <p class="section-subtitle">Beberapa cara untuk mencapai lokasi Trubi</p>
+      
+      <div class="transport-grid">
+        <div class="transport-card">
+          <span class="transport-icon">🚗</span>
+          <h3>Kendaraan Pribadi</h3>
+          <p class="transport-info">Parkir luas tersedia di area gerai. Akses mudah dari tol dalam kota.</p>
+          <span class="transport-time">15-30 menit</span>
+        </div>
+        
+        <div class="transport-card">
+          <span class="transport-icon">🚇</span>
+          <h3>TransJakarta</h3>
+          <p class="transport-info">Turun di halte Kelapa Gading, lanjut jalan kaki 5 menit.</p>
+          <span class="transport-time">20-40 menit</span>
+        </div>
+        
+        <div class="transport-card">
+          <span class="transport-icon">🚕</span>
+          <h3>Taxi/Online</h3>
+          <p class="transport-info">Gojek, Grab, dan taxi konvensional tersedia 24 jam.</p>
+          <span class="transport-time">10-25 menit</span>
+        </div>
+        
+        <div class="transport-card">
+          <span class="transport-icon">🚲</span>
+          <h3>Sepeda/Berjalan</h3>
+          <p class="transport-info">Lokasi strategis, mudah dijangkau dengan berjalan kaki.</p>
+          <span class="transport-time">5-15 menit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="location-cta">
+    <div class="wrap">
+      <h2 class="section-title" style="color: white;">Siap Berkunjung?</h2>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Pilih cara yang paling nyaman untuk menikmati Trubi</p>
+      
+      <div class="cta-grid">
+        <div class="cta-card">
+          <span class="cta-icon">🛵</span>
+          <h3>Delivery Order</h3>
+          <p>Pesan via GoFood, GrabFood, atau WhatsApp untuk pengantaran</p>
+          <a href="https://wa.me/6289525585293" class="branch-btn btn-primary" style="background: white; color: var(--emas);">Order Now</a>
+        </div>
+        
+        <div class="cta-card">
+          <span class="cta-icon">🏪</span>
+          <h3>Visit Store</h3>
+          <p>Kunjungi gerai terdekat untuk pengalaman langsung</p>
+          <button class="branch-btn btn-outline" style="border-color: white; color: white;" onclick="scrollToMap()">See Location</button>
+        </div>
+        
+        <div class="cta-card">
+          <span class="cta-icon">📱</span>
+          <h3>Mobile App</h3>
+          <p>Download app untuk promo eksklusif dan pemesanan mudah</p>
+          <button class="branch-btn btn-outline" style="border-color: white; color: white;" onclick="showAppDownload()">Download</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING NAVIGATION -->
+  <div class="floating-nav">
+    <button class="floating-btn btn-whatsapp" onclick="openWhatsApp()">
+      💬
+    </button>
+    <button class="floating-btn btn-navigation" onclick="openNavigation()">
+      🗺️
+    </button>
+    <button class="floating-btn btn-call" onclick="makeCall()">
+      📞
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+        <div>
+          <strong>Trubi Milk Cheese</strong>
+          <div class="muted">Ubi • Susu • Keju</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Tentang</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="gallery.html">Galeri</a></li>
+          <li><a href="location.html">Lokasi</a></li>
+          <li><a href="review.html">Review</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <div class="contact-info">
+          <a href="https://wa.me/6289525585293">💬 0895-2558-5293</a>
+          <a href="https://www.instagram.com/trubi_milk_cheese">📷 @trubi_milk_cheese</a>
+          <a href="https://www.tiktok.com/@trubi.milk.cheese">🎵 @trubi.milk.cheese</a>
+        </div>
+      </div>
+
+      <div class="footer-hours">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Sabtu: 09:00 - 21:00</p>
+        <p class="muted">Minggu: Tutup</p>
+      </div>
+    </div>
+
+    <div class="wrap copyright">
+      <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // LOCATION SPECIFIC JAVASCRIPT
+    document.addEventListener('DOMContentLoaded', function() {
+      initLocationPage();
+    });
+
+    function initLocationPage() {
+      // Map controls functionality
+      const mapBtns = document.querySelectorAll('.map-btn');
+      mapBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          mapBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const action = this.getAttribute('data-action');
+          handleMapAction(action);
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.querySelector('.search-input');
+      const searchBtn = document.querySelector('.search-btn');
+      
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') performSearch();
+      });
+
+      // Branch card animations
+      const branchCards = document.querySelectorAll('.branch-card');
+      branchCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+    }
+
+    function handleMapAction(action) {
+      const mapUrl = "https://goo.gl/maps/your-map-link";
+      
+      switch(action) {
+        case 'directions':
+          window.open(`${mapUrl}?q=Trubi+Milk+Cheese`, '_blank');
+          break;
+        case 'streetview':
+          window.open(`${mapUrl}/@?q=Trubi+Milk+Cheese`, '_blank');
+          break;
+        case 'save':
+          alert('Lokasi berhasil disimpan!');
+          break;
+      }
+    }
+
+    function performSearch() {
+      const searchInput = document.querySelector('.search-input');
+      const query = searchInput.value.trim();
+      
+      if (query) {
+        alert(`Mencari: ${query}`);
+        // In a real implementation, you would use this query to filter locations
+      }
+    }
+
+    function openWhatsApp() {
+      window.open('https://wa.me/6289525585293?text=Halo%20Trubi!%20Saya%20mau%20pesan%20dan%20bertanya%20tentang%20lokasi', '_blank');
+    }
+
+    function openNavigation() {
+      window.open('https://goo.gl/maps/your-map-link', '_blank');
+    }
+
+    function makeCall() {
+      window.location.href = 'tel:+6289525585293';
+    }
+
+    function scrollToMap() {
+      document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showAppDownload() {
+      alert('Aplikasi Trubi akan segera hadir!');
+    }
+  </script>
+</body>
+</html>
