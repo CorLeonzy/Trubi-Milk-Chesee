@@ -3,16 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trubi Milk Cheese</title>
-
-  <!-- Fonts & Styles -->
+  <title>Trubi Milk Cheese - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- LOADING -->
-  <div id="loading-screen" aria-hidden="false">
-    <img class="loading-gif" src="https://www.gambaranimasi.org/data/media/707/animasi-bergerak-selamat-datang-0031.gif" alt="Memuat...">
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-circle">
+          <span>🍠</span>
+        </div>
+        <h2>Trubi Milk Cheese</h2>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
   </div>
 
   <!-- HEADER -->
@@ -28,31 +36,23 @@
 
       <!-- Desktop Navigation -->
       <nav class="nav desktop-nav" aria-label="Main">
-        <a href="#about">Tentang</a>
-        <a href="#produk">Produk</a>
-        <a href="#gallery">Galeri</a>
-        <a href="#lokasi">Lokasi</a>
-        <a href="#review">Review</a>
-
-        <div class="contact-wrap">
-          <button id="contactBtn" class="contact-btn" aria-expanded="false">Hubungi Kami ▾</button>
-          <div id="contactPopup" class="contact-popup" aria-hidden="true">
-            <a href="https://wa.me/6289525585293" target="_blank" rel="noopener">📱 WhatsApp</a>
-            <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank" rel="noopener">📸 Instagram</a>
-            <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank" rel="noopener">🎵 TikTok</a>
-          </div>
-        </div>
+        <a href="index.html" class="nav-link active">🏠 Home</a>
+        <a href="about.html" class="nav-link">🍠 Tentang</a>
+        <a href="products.html" class="nav-link">🥤 Produk</a>
+        <a href="gallery.html" class="nav-link">📸 Galeri</a>
+        <a href="location.html" class="nav-link">📍 Lokasi</a>
+        <a href="review.html" class="nav-link">⭐ Review</a>
       </nav>
 
       <!-- Mobile Navigation -->
       <div class="mobile-nav">
-        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false" aria-label="Toggle Menu">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
         </button>
         
-        <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+        <div id="mobileMenu" class="mobile-menu">
           <div class="mobile-menu-content">
             <div class="mobile-brand">
               <img src="assets/images/logo.jpg" alt="Trubi Logo">
@@ -62,199 +62,204 @@
               </div>
             </div>
             
-            <a href="#about" class="mobile-nav-link">🍠 Tentang</a>
-            <a href="#produk" class="mobile-nav-link">🥤 Produk</a>
-            <a href="#gallery" class="mobile-nav-link">📸 Galeri</a>
-            <a href="#lokasi" class="mobile-nav-link">📍 Lokasi</a>
-            <a href="#review" class="mobile-nav-link">⭐ Review</a>
-            
-            <div class="mobile-contact">
-              <h3>📞 Hubungi Kami</h3>
-              <a href="https://wa.me/6289525585293" target="_blank" rel="noopener" class="mobile-social-link">
-                <span class="social-icon">💬</span>
-                <span>WhatsApp</span>
-              </a>
-              <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="mobile-social-link">
-                <span class="social-icon">📷</span>
-                <span>Instagram</span>
-              </a>
-              <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank" rel="noopener" class="mobile-social-link">
-                <span class="social-icon">🎵</span>
-                <span>TikTok</span>
-              </a>
-            </div>
+            <a href="index.html" class="mobile-nav-link active">
+              <span class="nav-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+              <span class="nav-icon">🍠</span>
+              <span>Tentang</span>
+            </a>
+            <a href="products.html" class="mobile-nav-link">
+              <span class="nav-icon">🥤</span>
+              <span>Produk</span>
+            </a>
+            <a href="gallery.html" class="mobile-nav-link">
+              <span class="nav-icon">📸</span>
+              <span>Galeri</span>
+            </a>
+            <a href="location.html" class="mobile-nav-link">
+              <span class="nav-icon">📍</span>
+              <span>Lokasi</span>
+            </a>
+            <a href="review.html" class="mobile-nav-link">
+              <span class="nav-icon">⭐</span>
+              <span>Review</span>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="home" data-reveal>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-content wrap">
       <div class="hero-text">
-        <p class="eyebrow">Inovasi Lokal • Kualitas Premium</p>
-        <h2>Trubi Milk Cheese</h2>
-        <p class="lead">Kombinasi sempurna antara ubi ungu lokal, susu segar, dan cream cheese premium — rasa lembut dan menggoda di setiap tegukan.</p>
-        <div class="hero-btns">
-          <a href="#produk" class="btn primary">Lihat Produk</a>
-          <a href="#about" class="btn ghost">Tentang Kami</a>
+        <div class="hero-badge">
+          <span class="badge">🔥 Terbaru</span>
+          <span class="badge">💜 Favorit</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="title-main">Trubi</span>
+          <span class="title-sub">Milk Cheese</span>
+        </h1>
+        <p class="hero-desc">Kombinasi sempurna <strong>ubi ungu lokal</strong>, <strong>susu segar</strong>, dan <strong>cream cheese premium</strong> — rasa lembut dan menggoda di setiap tegukan.</p>
+        
+        <div class="hero-features">
+          <div class="feature">
+            <span class="feature-icon">🍠</span>
+            <span>Ubi Ungu Asli</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🥛</span>
+            <span>Susu Segar</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🧀</span>
+            <span>Keju Premium</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn-primary">
+            <span class="btn-icon">🥤</span>
+            Lihat Menu
+          </a>
+          <a href="location.html" class="btn btn-secondary">
+            <span class="btn-icon">📍</span>
+            Kunjungi Kami
+          </a>
         </div>
       </div>
 
       <div class="hero-image">
-        <img src="assets/images/poster.jpg" alt="Trubi Milk Cheese">
+        <div class="image-container">
+          <img src="assets/images/poster.jpg" alt="Trubi Milk Cheese" class="main-image">
+          <div class="floating-elements">
+            <div class="floating-element">🍠</div>
+            <div class="floating-element">🧀</div>
+            <div class="floating-element">🥛</div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Explore More</span>
+      <div class="arrow"></div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="section about-section" data-reveal>
-    <div class="wrap about-wrap">
-      <div class="about-text">
-        <h2>Tentang Trubi</h2>
-        <p><strong>Trubi Milk Cheese</strong> menghadirkan inovasi minuman berbahan dasar ubi ungu, susu, dan keju. Rasa creamy dan tekstur lembut jadi ciri khas Trubi. Kami memprioritaskan bahan lokal & proses higienis.</p>
-        <ul class="about-points">
-          <li>🍠 Ubi ungu asli Indonesia</li>
-          <li>🥛 Susu full cream pilihan</li>
-          <li>🧀 Keju lembut premium</li>
-          <li>✨ Tanpa pengawet buatan</li>
-        </ul>
-      </div>
-      <div class="about-image">
-        <img src="assets/images/trubi3.jpg" alt="Tentang Trubi">
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUK -->
-  <section id="produk" class="section product-section" data-reveal>
+  <!-- QUICK LINKS -->
+  <section class="quick-links">
     <div class="wrap">
-      <h2>Produk Unggulan</h2>
-      <div class="product-grid">
-        <article class="prod">
-          <div class="prod-image">
+      <h2 class="section-title">Jelajahi Trubi</h2>
+      <div class="links-grid">
+        <a href="about.html" class="quick-link">
+          <div class="link-icon">🍠</div>
+          <h3>Tentang Kami</h3>
+          <p>Kenali lebih dekat cerita dan filosofi Trubi</p>
+          <span class="link-arrow">→</span>
+        </a>
+        
+        <a href="products.html" class="quick-link">
+          <div class="link-icon">🥤</div>
+          <h3>Menu Produk</h3>
+          <p>Lihat varian rasa dan menu spesial kami</p>
+          <span class="link-arrow">→</span>
+        </a>
+        
+        <a href="gallery.html" class="quick-link">
+          <div class="link-icon">📸</div>
+          <h3>Galeri Foto</h3>
+          <p>Kumpulan moment terbaik dari Trubi</p>
+          <span class="link-arrow">→</span>
+        </a>
+        
+        <a href="location.html" class="quick-link">
+          <div class="link-icon">📍</div>
+          <h3>Lokasi</h3>
+          <p>Temukan lokasi terdekat untuk menikmati Trubi</p>
+          <span class="link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured-products">
+    <div class="wrap">
+      <h2 class="section-title">Menu Andalan</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image">
             <img src="assets/images/trubi1.jpg" alt="Trubi Original">
+            <div class="product-badge">Bestseller</div>
           </div>
-          <h3>Trubi Original</h3>
-          <p>Ubi + susu full cream + cream cheese.</p>
-          <div class="prod-price">Rp 15.000</div>
-        </article>
-        <article class="prod">
-          <div class="prod-image">
-            <img src="assets/images/trubi3.jpg" alt="Trubi Choco">
+          <div class="product-info">
+            <h3>Trubi Original</h3>
+            <p>Perpaduan klasik ubi ungu, susu, dan keju</p>
+            <div class="product-price">Rp 15.000</div>
           </div>
-          <h3>Trubi Choco Cheese</h3>
-          <p>Susu coklat + keju + topping.</p>
-          <div class="prod-price">Rp 18.000</div>
-        </article>
-        <article class="prod">
-          <div class="prod-image">
-            <img src="assets/images/trubi5.jpg" alt="Trubi Boba">
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="assets/images/trubi3.jpg" alt="Trubi Choco Cheese">
+            <div class="product-badge">New</div>
           </div>
-          <h3>Trubi Boba Trio</h3>
-          <p>Topping boba + cream cheese.</p>
-          <div class="prod-price">Rp 20.000</div>
-        </article>
+          <div class="product-info">
+            <h3>Trubi Choco Cheese</h3>
+            <p>Coklat creamy dengan keju lembut</p>
+            <div class="product-price">Rp 18.000</div>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <img src="assets/images/trubi5.jpg" alt="Trubi Boba Trio">
+          </div>
+          <div class="product-info">
+            <h3>Trubi Boba Trio</h3>
+            <p>Dengan topping boba spesial</p>
+            <div class="product-price">Rp 20.000</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="view-all">
+        <a href="products.html" class="btn btn-outline">
+          Lihat Semua Menu
+          <span class="btn-arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="section gallery-section" data-reveal>
+  <!-- CTA SECTION -->
+  <section class="cta-section">
     <div class="wrap">
-      <h2>Galeri Trubi</h2>
-      <div class="gallery-slider">
-        <button class="slider-btn left" id="prevSlide" aria-label="Sebelumnya">‹</button>
-        <div class="gallery-viewport">
-          <div class="gallery-track" id="galleryTrack">
-            <img src="assets/images/trubi1.jpg" alt="trubi1">
-            <img src="assets/images/trubi2.jpg" alt="trubi2">
-            <img src="assets/images/trubi3.jpg" alt="trubi3">
-            <img src="assets/images/trubi4.jpg" alt="trubi4">
-            <img src="assets/images/trubi5.jpg" alt="trubi5">
-            <img src="assets/images/trubi6.jpg" alt="trubi6">
-            <img src="assets/images/trubi7.jpg" alt="trubi7">
-          </div>
-        </div>
-        <button class="slider-btn right" id="nextSlide" aria-label="Berikutnya">›</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- LOKASI -->
-  <section id="lokasi" class="section location-section" data-reveal>
-    <div class="wrap location-grid">
-      <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24821573.262935482!2d105.0794676048305!3d-4.445273445570013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f514287bc1ef%3A0x3450ea779bffcee5!2sSMK%20Hang%20Tuah%201%20Jakarta!5e1!3m2!1sid!2sid!4v1755744874701!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
-      </div>
-
-      <div class="address">
-        <h3>Alamat Kami</h3>
-        <p>Jl. Tabah Raya No.1, Kelapa Gading, Jakarta Utara 14240</p>
-        <h4>Jam Operasional</h4>
-        <p>Senin–Sabtu 09:00–21:00</p>
-        <div class="loc-actions">
-          <button class="btn primary" onclick="findLocation()">📍 Buka Maps</button>
-          <a class="btn ghost" href="#">💳 Link Pembayaran</a>
+      <div class="cta-content">
+        <h2>Ready to Taste the Magic?</h2>
+        <p>Rasakan kelezatan Trubi Milk Cheese sekarang juga!</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/6289525585293" class="btn btn-whatsapp">
+            <span class="btn-icon">💬</span>
+            Order via WhatsApp
+          </a>
+          <a href="location.html" class="btn btn-secondary">
+            <span class="btn-icon">📍</span>
+            Visit Our Store
+          </a>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- REVIEW (UPGRADED) -->
-  <section id="review" class="section review-section" data-reveal>
-    <div class="wrap review-wrap">
-      <div class="review-summary">
-        <h2>Berikan Pendapatmu</h2>
-        <div class="avg-box" id="avgBox" aria-hidden="true">
-          <div class="avg-value" id="avgValue">0.0</div>
-          <div class="avg-stars" id="avgStars" aria-hidden="true"></div>
-          <div class="avg-count muted" id="avgCount">Belum ada review</div>
-        </div>
-      </div>
-
-      <div class="review-grid">
-        <form id="reviewForm" class="review-form" aria-label="Form review">
-          <label class="label">
-            <span>Nama</span>
-            <input id="reviewName" type="text" placeholder="Nama Anda" required>
-          </label>
-
-          <label class="label">
-            <span>Komentar</span>
-            <textarea id="reviewText" rows="4" placeholder="Tulis pendapatmu..." required></textarea>
-          </label>
-
-          <div class="label">
-            <span>Rating</span>
-            <div class="star-picker" role="radiogroup" aria-label="Pilih rating">
-              <button type="button" class="star" data-value="1" aria-pressed="false">☆</button>
-              <button type="button" class="star" data-value="2" aria-pressed="false">☆</button>
-              <button type="button" class="star" data-value="3" aria-pressed="false">☆</button>
-              <button type="button" class="star" data-value="4" aria-pressed="false">☆</button>
-              <button type="button" class="star" data-value="5" aria-pressed="false">☆</button>
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button class="btn primary" type="submit">Kirim Review</button>
-            <button class="btn ghost" type="reset">Bersihkan</button>
-          </div>
-        </form>
-
-        <div class="reviews-list-wrap">
-          <div id="reviewsList" class="reviews-list" aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- toast -->
-    <div id="toast" class="toast" aria-hidden="true"></div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="site-footer" data-reveal>
+  <footer class="site-footer">
     <div class="wrap footer-inner">
       <div class="footer-brand">
         <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
@@ -267,33 +272,28 @@
       <div class="footer-links">
         <h4>Navigasi</h4>
         <ul>
-          <li><a href="#about">Tentang</a></li>
-          <li><a href="#produk">Produk</a></li>
-          <li><a href="#gallery">Galeri</a></li>
-          <li><a href="#lokasi">Lokasi</a></li>
-          <li><a href="#review">Review</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Tentang</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="gallery.html">Galeri</a></li>
+          <li><a href="location.html">Lokasi</a></li>
+          <li><a href="review.html">Review</a></li>
         </ul>
       </div>
 
-      <div class="footer-group">
-        <h4>Kelompok 8 PKWU</h4>
-        <ul>
-          <li>Aryo</li>
-          <li>Callista</li>
-          <li>Zahra</li>
-          <li>Naomi</li>
-          <li>Badria</li>
-          <li>Haura</li>
-          <li>Claudia</li>
-          <li>Checy</li>
-        </ul>
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <div class="contact-info">
+          <a href="https://wa.me/6289525585293">💬 0895-2558-5293</a>
+          <a href="https://www.instagram.com/trubi_milk_cheese">📷 @trubi_milk_cheese</a>
+          <a href="https://www.tiktok.com/@trubi.milk.cheese">🎵 @trubi.milk.cheese</a>
+        </div>
       </div>
 
-      <div class="footer-socials">
-        <h4>Ikuti Kami</h4>
-        <a href="https://wa.me/6289525585293" target="_blank">WhatsApp</a>
-        <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank">TikTok</a>
+      <div class="footer-hours">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Sabtu: 09:00 - 21:00</p>
+        <p class="muted">Minggu: Tutup</p>
       </div>
     </div>
 
