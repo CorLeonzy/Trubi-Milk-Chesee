@@ -26,7 +26,8 @@
         </div>
       </div>
 
-      <nav class="nav" aria-label="Main">
+      <!-- Desktop Navigation -->
+      <nav class="nav desktop-nav" aria-label="Main">
         <a href="#about">Tentang</a>
         <a href="#produk">Produk</a>
         <a href="#gallery">Galeri</a>
@@ -42,6 +43,49 @@
           </div>
         </div>
       </nav>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+          <div class="mobile-menu-content">
+            <div class="mobile-brand">
+              <img src="assets/images/logo.jpg" alt="Trubi Logo">
+              <div>
+                <strong>Trubi Milk Cheese</strong>
+                <p>Ubi • Susu • Keju</p>
+              </div>
+            </div>
+            
+            <a href="#about" class="mobile-nav-link">🍠 Tentang</a>
+            <a href="#produk" class="mobile-nav-link">🥤 Produk</a>
+            <a href="#gallery" class="mobile-nav-link">📸 Galeri</a>
+            <a href="#lokasi" class="mobile-nav-link">📍 Lokasi</a>
+            <a href="#review" class="mobile-nav-link">⭐ Review</a>
+            
+            <div class="mobile-contact">
+              <h3>📞 Hubungi Kami</h3>
+              <a href="https://wa.me/6289525585293" target="_blank" rel="noopener" class="mobile-social-link">
+                <span class="social-icon">💬</span>
+                <span>WhatsApp</span>
+              </a>
+              <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="mobile-social-link">
+                <span class="social-icon">📷</span>
+                <span>Instagram</span>
+              </a>
+              <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank" rel="noopener" class="mobile-social-link">
+                <span class="social-icon">🎵</span>
+                <span>TikTok</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -88,9 +132,30 @@
     <div class="wrap">
       <h2>Produk Unggulan</h2>
       <div class="product-grid">
-        <article class="prod"><img src="assets/images/trubi1.jpg" alt="Trubi Original"><h3>Trubi Original</h3><p>Ubi + susu full cream + cream cheese.</p></article>
-        <article class="prod"><img src="assets/images/trubi3.jpg" alt="Trubi Choco"><h3>Trubi Choco Cheese</h3><p>Susu coklat + keju + topping.</p></article>
-        <article class="prod"><img src="assets/images/trubi5.jpg" alt="Trubi Boba"><h3>Trubi Boba Trio</h3><p>Topping boba + cream cheese.</p></article>
+        <article class="prod">
+          <div class="prod-image">
+            <img src="assets/images/trubi1.jpg" alt="Trubi Original">
+          </div>
+          <h3>Trubi Original</h3>
+          <p>Ubi + susu full cream + cream cheese.</p>
+          <div class="prod-price">Rp 15.000</div>
+        </article>
+        <article class="prod">
+          <div class="prod-image">
+            <img src="assets/images/trubi3.jpg" alt="Trubi Choco">
+          </div>
+          <h3>Trubi Choco Cheese</h3>
+          <p>Susu coklat + keju + topping.</p>
+          <div class="prod-price">Rp 18.000</div>
+        </article>
+        <article class="prod">
+          <div class="prod-image">
+            <img src="assets/images/trubi5.jpg" alt="Trubi Boba">
+          </div>
+          <h3>Trubi Boba Trio</h3>
+          <p>Topping boba + cream cheese.</p>
+          <div class="prod-price">Rp 20.000</div>
+        </article>
       </div>
     </div>
   </section>
@@ -188,56 +253,55 @@
     <div id="toast" class="toast" aria-hidden="true"></div>
   </section>
 
-  <!-- Ganti bagian FOOTER di index.html lo jadi ini -->
-<footer class="site-footer" data-reveal>
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
-      <div>
-        <strong>Trubi Milk Cheese</strong>
-        <div class="muted">Ubi • Susu • Keju</div>
+  <!-- FOOTER -->
+  <footer class="site-footer" data-reveal>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+        <div>
+          <strong>Trubi Milk Cheese</strong>
+          <div class="muted">Ubi • Susu • Keju</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#produk">Produk</a></li>
+          <li><a href="#gallery">Galeri</a></li>
+          <li><a href="#lokasi">Lokasi</a></li>
+          <li><a href="#review">Review</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-group">
+        <h4>Kelompok 8 PKWU</h4>
+        <ul>
+          <li>Aryo</li>
+          <li>Callista</li>
+          <li>Zahra</li>
+          <li>Naomi</li>
+          <li>Badria</li>
+          <li>Haura</li>
+          <li>Claudia</li>
+          <li>Checy</li>
+        </ul>
+      </div>
+
+      <div class="footer-socials">
+        <h4>Ikuti Kami</h4>
+        <a href="https://wa.me/6289525585293" target="_blank">WhatsApp</a>
+        <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank">TikTok</a>
       </div>
     </div>
 
-    <div class="footer-links">
-      <h4>Navigasi</h4>
-      <ul>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#produk">Produk</a></li>
-        <li><a href="#gallery">Galeri</a></li>
-        <li><a href="#lokasi">Lokasi</a></li>
-        <li><a href="#review">Review</a></li>
-      </ul>
+    <div class="wrap copyright">
+      <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
     </div>
+  </footer>
 
-    <div class="footer-group">
-      <h4>Kelompok 8 PKWU</h4>
-      <ul>
-        <li>Aryo</li>
-        <li>Callista</li>
-        <li>Zahra</li>
-        <li>Naomi</li>
-        <li>Badria</li>
-        <li>Haura</li>
-        <li>Claudia</li>
-        <li>Checy</li>
-      </ul>
-    </div>
-
-    <div class="footer-socials">
-      <h4>Ikuti Kami</h4>
-      <a href="https://wa.me/6289525585293" target="_blank">WhatsApp</a>
-      <a href="https://www.instagram.com/trubi_milk_cheese?igsh=MXg0M3A4Z3hmcGdpMg%3D%3D&utm_source=qr" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@trubi.milk.cheese?_t=ZS-90S13OapjMb&_r=1" target="_blank">TikTok</a>
-    </div>
-  </div>
-
-  <div class="wrap copyright">
-    <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
-  </div>
-</footer>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
