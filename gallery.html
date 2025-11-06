@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galeri Trubi - Koleksi Foto Terbaik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* GALLERY SPECIFIC STYLES */
+    .gallery-hero {
+      position: relative;
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, var(--ungu) 0%, var(--ungu-gelap) 100%);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .gallery-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .gallery-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .gallery-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--emas);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* GALLERY FILTER */
+    .gallery-filter {
+      padding: 40px 0;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky;
+      top: 80px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 12px 24px;
+      background: white;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 25px;
+      font-weight: 600;
+      color: var(--coklat);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--ungu-muda);
+      color: var(--ungu);
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: var(--ungu);
+      border-color: var(--ungu);
+      color: white;
+      box-shadow: 0 5px 15px rgba(107, 53, 166, 0.3);
+    }
+
+    .filter-icon {
+      font-size: 1.1rem;
+    }
+
+    /* MASONRY GRID */
+    .gallery-container {
+      padding: 60px 0;
+      background: var(--cream);
+    }
+
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.4s ease;
+      background: white;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      padding: 30px 20px 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    .gallery-category {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255,255,255,0.9);
+      color: var(--ungu);
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    .gallery-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .gallery-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+
+    .gallery-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+    }
+
+    .action-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* FEATURED SECTION */
+    .featured-gallery {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .featured-slider {
+      position: relative;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .slider-container {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+
+    .slider-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slider-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      padding: 40px;
+    }
+
+    .slider-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .slider-desc {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--ungu);
+      z-index: 10;
+    }
+
+    .slider-nav:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-prev {
+      left: 20px;
+    }
+
+    .slider-next {
+      right: 20px;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slider-dot.active {
+      background: white;
+      transform: scale(1.2);
+    }
+
+    /* INSTAGRAM SECTION */
+    .instagram-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #fdf4ff 0%, var(--cream) 100%);
+      text-align: center;
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .instagram-item {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .instagram-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .instagram-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .instagram-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(107, 53, 166, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .instagram-item:hover .instagram-overlay {
+      opacity: 1;
+    }
+
+    .instagram-icon {
+      font-size: 2rem;
+      color: white;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .lightbox.active .lightbox-content {
+      transform: scale(1);
+    }
+
+    .lightbox-image {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .lightbox-info {
+      padding: 20px;
+      background: white;
+    }
+
+    .lightbox-title {
+      font-size: 1.3rem;
+      color: var(--ungu);
+      margin-bottom: 8px;
+    }
+
+    .lightbox-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(0,0,0,0.9);
+      transform: scale(1.1);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(0,0,0,0.9);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    /* LOAD MORE */
+    .load-more {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .btn-load {
+      background: var(--ungu);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-load:hover {
+      background: var(--ungu-gelap);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(107, 53, 166, 0.3);
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* FLOATING ACTION BUTTON */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .masonry-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      
+      .slider-container {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-hero {
+        padding: 100px 0 60px;
+      }
+      
+      .gallery-stats {
+        gap: 20px;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .filter-buttons {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      
+      .slider-container {
+        height: 300px;
+      }
+      
+      .slider-content {
+        padding: 20px;
+      }
+      
+      .slider-title {
+        font-size: 1.5rem;
+      }
+      
+      .slider-desc {
+        font-size: 1rem;
+      }
+      
+      .instagram-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      
+      .fab {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .masonry-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .gallery-stats {
+        gap: 15px;
+      }
+      
+      .stat-item {
+        flex: 1;
+        min-width: 100px;
+      }
+      
+      .slider-container {
+        height: 250px;
+      }
+      
+      .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .lightbox-content {
+        max-width: 95%;
+      }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gallery-item {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .gallery-item:nth-child(odd) {
+      animation-delay: 0.1s;
+    }
+
+    .gallery-item:nth-child(even) {
+      animation-delay: 0.2s;
+    }
+
+    /* PARALLAX EFFECT */
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background: url('assets/images/trubi1.jpg') center/cover fixed;
+      opacity: 0.1;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-circle">
+          <span>📸</span>
+        </div>
+        <h2>Loading Gallery</h2>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>Trubi Milk Cheese</h1>
+          <p>Ubi • Susu • Keju</p>
+        </div>
+      </div>
+
+      <nav class="nav desktop-nav" aria-label="Main">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="about.html" class="nav-link">🍠 Tentang</a>
+        <a href="products.html" class="nav-link">🥤 Produk</a>
+        <a href="gallery.html" class="nav-link active">📸 Galeri</a>
+        <a href="location.html" class="nav-link">📍 Lokasi</a>
+        <a href="review.html" class="nav-link">⭐ Review</a>
+      </nav>
+
+      <div class="mobile-nav">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div id="mobileMenu" class="mobile-menu">
+          <div class="mobile-menu-content">
+            <div class="mobile-brand">
+              <img src="assets/images/logo.jpg" alt="Trubi Logo">
+              <div>
+                <strong>Trubi Milk Cheese</strong>
+                <p>Ubi • Susu • Keju</p>
+              </div>
+            </div>
+            
+            <a href="index.html" class="mobile-nav-link">
+              <span class="nav-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+              <span class="nav-icon">🍠</span>
+              <span>Tentang</span>
+            </a>
+            <a href="products.html" class="mobile-nav-link">
+              <span class="nav-icon">🥤</span>
+              <span>Produk</span>
+            </a>
+            <a href="gallery.html" class="mobile-nav-link active">
+              <span class="nav-icon">📸</span>
+              <span>Galeri</span>
+            </a>
+            <a href="location.html" class="mobile-nav-link">
+              <span class="nav-icon">📍</span>
+              <span>Lokasi</span>
+            </a>
+            <a href="review.html" class="mobile-nav-link">
+              <span class="nav-icon">⭐</span>
+              <span>Review</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- GALLERY HERO -->
+  <section class="gallery-hero">
+    <div class="parallax-bg"></div>
+    <div class="wrap gallery-hero-content">
+      <h1 class="page-title">Galeri Trubi</h1>
+      <p class="page-subtitle">Kumpulan Moment Terbaik & Kenangan Manis Bersama Trubi</p>
+      
+      <div class="gallery-stats">
+        <div class="stat-item">
+          <span class="stat-number">150+</span>
+          <span class="stat-label">Foto Terbaik</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">8</span>
+          <span class="stat-label">Kategori</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">1K+</span>
+          <span class="stat-label">Like Instagram</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">2024</span>
+          <span class="stat-label">Tahun Aktif</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY FILTER -->
+  <section class="gallery-filter">
+    <div class="wrap">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">
+          <span class="filter-icon">🌟</span>
+          Semua Foto
+        </button>
+        <button class="filter-btn" data-filter="produk">
+          <span class="filter-icon">🥤</span>
+          Menu Produk
+        </button>
+        <button class="filter-btn" data-filter="proses">
+          <span class="filter-icon">👨‍🍳</span>
+          Proses Pembuatan
+        </button>
+        <button class="filter-btn" data-filter="event">
+          <span class="filter-icon">🎉</span>
+          Event & Promo
+        </button>
+        <button class="filter-btn" data-filter="customer">
+          <span class="filter-icon">😊</span>
+          Foto Customer
+        </button>
+        <button class="filter-btn" data-filter="behind">
+          <span class="filter-icon">📱</span>
+          Behind The Scene
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SLIDER -->
+  <section class="featured-gallery">
+    <div class="wrap">
+      <h2 class="section-title">Featured Moments</h2>
+      <p class="section-subtitle">Highlight terbaik dari perjalanan Trubi</p>
+      
+      <div class="featured-slider">
+        <div class="slider-container">
+          <div class="slider-track" id="sliderTrack">
+            <div class="slider-slide">
+              <img src="assets/images/trubi1.jpg" alt="Trubi Original" class="slider-image">
+              <div class="slider-content">
+                <h3 class="slider-title">Trubi Original</h3>
+                <p class="slider-desc">Minuman andalan yang memulai segalanya. Kombinasi sempurna ubi ungu, susu, dan keju.</p>
+              </div>
+            </div>
+            <div class="slider-slide">
+              <img src="assets/images/trubi3.jpg" alt="Trubi Choco Cheese" class="slider-image">
+              <div class="slider-content">
+                <h3 class="slider-title">Trubi Choco Cheese</h3>
+                <p class="slider-desc">Inovasi terbaru dengan coklat premium dan keju lembut yang menggoda.</p>
+              </div>
+            </div>
+            <div class="slider-slide">
+              <img src="assets/images/trubi5.jpg" alt="Trubi Boba Trio" class="slider-image">
+              <div class="slider-content">
+                <h3 class="slider-title">Trubi Boba Trio</h3>
+                <p class="slider-desc">Dengan topping boba spesial yang bikin ketagihan.</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="slider-nav slider-prev" id="sliderPrev">‹</button>
+          <button class="slider-nav slider-next" id="sliderNext">›</button>
+          
+          <div class="slider-dots" id="sliderDots">
+            <div class="slider-dot active"></div>
+            <div class="slider-dot"></div>
+            <div class="slider-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASONRY GALLERY -->
+  <section class="gallery-container">
+    <div class="wrap">
+      <div class="masonry-grid" id="galleryGrid">
+        <!-- Item 1 -->
+        <div class="gallery-item" data-category="produk">
+          <img src="assets/images/trubi1.jpg" alt="Trubi Original" class="gallery-image">
+          <div class="gallery-category">Menu Produk</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Trubi Original</h4>
+            <p class="gallery-desc">Kombinasi klasik ubi ungu dengan susu dan keju premium.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi1.jpg', 'Trubi Original')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi1.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="gallery-item" data-category="produk">
+          <img src="assets/images/trubi2.jpg" alt="Trubi Matcha" class="gallery-image">
+          <div class="gallery-category">Menu Produk</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Trubi Matcha Cheese</h4>
+            <p class="gallery-desc">Matcha Jepang asli dengan cream cheese yang creamy.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi2.jpg', 'Trubi Matcha Cheese')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi2.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="gallery-item" data-category="produk">
+          <img src="assets/images/trubi3.jpg" alt="Trubi Choco Cheese" class="gallery-image">
+          <div class="gallery-category">Menu Produk</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Trubi Choco Cheese</h4>
+            <p class="gallery-desc">Coklat Belgia premium dengan keju lembut.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi3.jpg', 'Trubi Choco Cheese')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi3.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="gallery-item" data-category="proses">
+          <img src="assets/images/trubi4.jpg" alt="Proses Pembuatan" class="gallery-image">
+          <div class="gallery-category">Proses Pembuatan</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Proses Penyajian</h4>
+            <p class="gallery-desc">Setiap tahap dibuat dengan teliti untuk kualitas terbaik.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi4.jpg', 'Proses Pembuatan Trubi')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi4.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="gallery-item" data-category="produk">
+          <img src="assets/images/trubi5.jpg" alt="Trubi Boba Trio" class="gallery-image">
+          <div class="gallery-category">Menu Produk</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Trubi Boba Trio</h4>
+            <p class="gallery-desc">Dengan topping boba, jelly, dan pearl yang spesial.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi5.jpg', 'Trubi Boba Trio')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi5.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="gallery-item" data-category="customer">
+          <img src="assets/images/trubi6.jpg" alt="Customer Happy" class="gallery-image">
+          <div class="gallery-category">Foto Customer</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Moment Bahagia</h4>
+            <p class="gallery-desc">Customer menikmati Trubi dengan senyuman.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi6.jpg', 'Moment Bahagia dengan Trubi')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi6.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="gallery-item" data-category="event">
+          <img src="assets/images/trubi7.jpg" alt="Event Trubi" class="gallery-image">
+          <div class="gallery-category">Event & Promo</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Special Event</h4>
+            <p class="gallery-desc">Acara spesial dengan promo menarik untuk pelanggan.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/trubi7.jpg', 'Special Event Trubi')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/trubi7.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 8 -->
+        <div class="gallery-item" data-category="behind">
+          <img src="assets/images/poster.jpg" alt="Behind The Scene" class="gallery-image">
+          <div class="gallery-category">Behind The Scene</div>
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">Proses Kreatif</h4>
+            <p class="gallery-desc">Dibalik layar pembuatan konten dan foto produk.</p>
+            <div class="gallery-actions">
+              <button class="action-btn" onclick="shareImage('assets/images/poster.jpg', 'Behind The Scene Trubi')">
+                <span>📤</span> Share
+              </button>
+              <button class="action-btn" onclick="downloadImage('assets/images/poster.jpg')">
+                <span>⬇️</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="load-more">
+        <button class="btn-load" id="loadMoreBtn">
+          <span>Load More Photos</span>
+          <div class="loading-spinner" id="loadingSpinner"></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM SECTION -->
+  <section class="instagram-section">
+    <div class="wrap">
+      <h2 class="section-title">Follow Our Instagram</h2>
+      <p class="section-subtitle">@trubi_milk_cheese • Update daily content</p>
+      
+      <div class="instagram-grid">
+        <div class="instagram-item">
+          <img src="assets/images/trubi1.jpg" alt="Instagram 1" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="assets/images/trubi2.jpg" alt="Instagram 2" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="assets/images/trubi3.jpg" alt="Instagram 3" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="assets/images/trubi4.jpg" alt="Instagram 4" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="assets/images/trubi5.jpg" alt="Instagram 5" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="assets/images/trubi6.jpg" alt="Instagram 6" class="instagram-image">
+          <div class="instagram-overlay">
+            <span class="instagram-icon">❤️</span>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px;">
+        <a href="https://www.instagram.com/trubi_milk_cheese" target="_blank" class="btn btn-outline">
+          <span class="btn-icon">📷</span>
+          Follow @trubi_milk_cheese
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    
+    <div class="lightbox-content">
+      <img id="lightboxImage" class="lightbox-image">
+      <div class="lightbox-info">
+        <h3 id="lightboxTitle" class="lightbox-title"></h3>
+        <p id="lightboxDesc" class="lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING ACTION BUTTON -->
+  <button class="fab" onclick="shareGallery()">
+    📤
+  </button>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.jpg" alt="Trubi Logo" class="footer-logo">
+        <div>
+          <strong>Trubi Milk Cheese</strong>
+          <div class="muted">Ubi • Susu • Keju</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Tentang</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="gallery.html">Galeri</a></li>
+          <li><a href="location.html">Lokasi</a></li>
+          <li><a href="review.html">Review</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Kontak</h4>
+        <div class="contact-info">
+          <a href="https://wa.me/6289525585293">💬 0895-2558-5293</a>
+          <a href="https://www.instagram.com/trubi_milk_cheese">📷 @trubi_milk_cheese</a>
+          <a href="https://www.tiktok.com/@trubi.milk.cheese">🎵 @trubi.milk.cheese</a>
+        </div>
+      </div>
+
+      <div class="footer-hours">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Sabtu: 09:00 - 21:00</p>
+        <p class="muted">Minggu: Tutup</p>
+      </div>
+    </div>
+
+    <div class="wrap copyright">
+      <p>© 2025 <strong>Trubi Milk Cheese</strong> • Crafted with 💜 by Kelompok 8</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // GALLERY SPECIFIC JAVASCRIPT
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize gallery
+      initGallery();
+      initSlider();
+      initLightbox();
+    });
+
+    // Gallery Filter
+    function initGallery() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+
+      // Filter functionality
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          galleryItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.style.display = 'block';
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+              }, 50);
+            } else {
+              item.style.opacity = '0';
+              item.style.transform = 'scale(0.8)';
+              setTimeout(() => {
+                item.style.display = 'none';
+              }, 300);
+            }
+          });
+        });
+      });
+
+      // Load more functionality
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          loadingSpinner.style.display = 'block';
+          this.querySelector('span').textContent = 'Loading...';
+          
+          // Simulate loading
+          setTimeout(() => {
+            // In real implementation, you would fetch more data here
+            loadingSpinner.style.display = 'none';
+            this.querySelector('span').textContent = 'No More Photos';
+            this.disabled = true;
+            this.style.opacity = '0.6';
+          }, 2000);
+        });
+      }
+
+      // Add click event to gallery items for lightbox
+      galleryItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const img = this.querySelector('.gallery-image');
+          const title = this.querySelector('.gallery-title');
+          const desc = this.querySelector('.gallery-desc');
+          
+          openLightbox(img.src, title?.textContent || '', desc?.textContent || '');
+        });
+      });
+    }
+
+    // Slider functionality
+    function initSlider() {
+      const sliderTrack = document.getElementById('sliderTrack');
+      const sliderPrev = document.getElementById('sliderPrev');
+      const sliderNext = document.getElementById('sliderNext');
+      const sliderDots = document.querySelectorAll('.slider-dot');
+      
+      let currentSlide = 0;
+      const totalSlides = document.querySelectorAll('.slider-slide').length;
+
+      function goToSlide(index) {
+        currentSlide = index;
+        sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update dots
+        sliderDots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
+
+      sliderPrev.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        goToSlide(currentSlide);
+      });
+
+      sliderNext.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+      });
+
+      // Auto slide
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+      }, 5000);
+
+      // Dot click events
+      sliderDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+      });
+    }
+
+    // Lightbox functionality
+    function initLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxClose = document.getElementById('lightboxClose');
+      const lightboxPrev = document.getElementById('lightboxPrev');
+      const lightboxNext = document.getElementById('lightboxNext');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxTitle = document.getElementById('lightboxTitle');
+      const lightboxDesc = document.getElementById('lightboxDesc');
+
+      let currentLightboxIndex = 0;
+      const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+
+      function openLightbox(src, title, desc, index = 0) {
+        currentLightboxIndex = index;
+        lightboxImage.src = src;
+        lightboxTitle.textContent = title;
+        lightboxDesc.textContent = desc;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function navigateLightbox(direction) {
+        currentLightboxIndex = (currentLightboxIndex + direction + galleryItems.length) % galleryItems.length;
+        const item = galleryItems[currentLightboxIndex];
+        const img = item.querySelector('.gallery-image');
+        const title = item.querySelector('.gallery-title');
+        const desc = item.querySelector('.gallery-desc');
+        
+        openLightbox(img.src, title?.textContent || '', desc?.textContent || '', currentLightboxIndex);
+      }
+
+      // Event listeners
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+      lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+      // Close on background click
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+      });
+
+      // Update global function
+      window.openLightbox = openLightbox;
+    }
+
+    // Share functionality
+    function shareImage(imageUrl, title) {
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: 'Check out this amazing photo from Trubi Milk Cheese!',
+          url: imageUrl,
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        const shareUrl = `https://wa.me/?text=${encodeURIComponent(`Check out ${title} from Trubi Milk Cheese! ${imageUrl}`)}`;
+        window.open(shareUrl, '_blank');
+      }
+    }
+
+    function downloadImage(imageUrl) {
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = 'trubi-photo.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function shareGallery() {
+      const galleryUrl = window.location.href;
+      const message = 'Check out the amazing gallery of Trubi Milk Cheese! 🍠🥤🧀';
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'Trubi Milk Cheese Gallery',
+          text: message,
+          url: galleryUrl,
+        });
+      } else {
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${message} ${galleryUrl}`)}`;
+        window.open(whatsappUrl, '_blank');
+      }
+    }
+
+    // Parallax effect
+    window.addEventListener('scroll', function() {
+      const parallaxBg = document.querySelector('.parallax-bg');
+      if (parallaxBg) {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        parallaxBg.style.transform = `translateY(${rate}px)`;
+      }
+    });
+
+    // Add some interactive effects
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+      });
+    });
+
+    // Initialize animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      observer.observe(item);
+    });
+  </script>
+</body>
+</html>
